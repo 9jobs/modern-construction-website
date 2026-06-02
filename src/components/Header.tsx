@@ -17,12 +17,12 @@ const REGIONS = [
 ];
 
 const NAV_LINKS = [
-  { name: 'Home Designs', href: '/house-designs' },
+  { name: 'Home Designs', href: '/home-designs' },
   { name: 'Display Homes', href: '/display-homes' },
   { name: 'House & Land', href: '/house-and-land' },
-  { name: 'Style Inspiration', href: '/blog' },
+  { name: 'Style Inspiration', href: '/style-inspiration' },
   { name: 'Build with Modern-Property', href: '/build-with-aura' },
-  { name: 'More', href: '/properties' },
+  { name: 'More', href: '/current-offers' },
 ];
 
 export const Header: React.FC = () => {
@@ -32,13 +32,24 @@ export const Header: React.FC = () => {
   const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const { savedProperties, selectedState, setSelectedState } = useProperties();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', handleScroll);
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY;
+
+      setScrolled(currentScrollY > 24);
+      setNavHidden(scrollingDown && currentScrollY > 140 && !isOpen);
+      lastScrollY = Math.max(currentScrollY, 0);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isOpen]);
 
   const currentRegionLabel = REGIONS.find((region) => region.stateCode === selectedState)?.label || 'Australia';
 
@@ -168,12 +179,14 @@ export const Header: React.FC = () => {
 
       <motion.nav 
         animate={{ 
-          boxShadow: scrolled ? '0 10px 30px -10px rgba(7, 29, 56, 0.08)' : '0 0px 0px rgba(0,0,0,0)',
-          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.96)' : 'rgba(255, 255, 255, 1)',
-          backdropFilter: scrolled ? 'blur(8px)' : 'blur(0px)'
+          y: navHidden ? '-100%' : '0%',
+          opacity: navHidden ? 0.96 : 1,
+          boxShadow: scrolled ? '0 14px 34px -18px rgba(7, 29, 56, 0.18)' : '0 0px 0px rgba(0,0,0,0)',
+          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.94)' : 'rgba(255, 255, 255, 1)',
+          backdropFilter: scrolled ? 'blur(14px)' : 'blur(0px)'
         }}
-        transition={{ duration: 0.35, ease: 'easeInOut' }}
-        className={`hidden border-b border-[#DADDE2] bg-white md:block ${scrolled ? 'sticky top-0 shadow-sm' : ''}`}
+        transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+        className={`hidden border-b border-[#DADDE2] bg-white will-change-transform md:block ${scrolled ? 'sticky top-0 shadow-sm' : ''}`}
       >
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6">
           <motion.ul 

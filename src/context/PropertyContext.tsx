@@ -58,6 +58,11 @@ export const PropertyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Initialize from LocalStorage in client-side
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      const hasChosen = sessionStorage.getItem('aura_location_chosen');
+      if (!hasChosen) {
+        setShowLocationPopup(true);
+      }
+
       const saved = localStorage.getItem('aura_saved_properties');
       if (saved) {
         try { setSavedProperties(JSON.parse(saved)); } catch (e) { console.error(e); }

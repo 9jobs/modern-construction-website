@@ -6,7 +6,7 @@ import { useProperties } from '../context/PropertyContext';
 import { Heart, BedDouble, Bath, Car, Maximize, CheckSquare, Square, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Magnetic } from './ScrollReveal';
+import { AnimatedCounter, Magnetic } from './ScrollReveal';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -137,24 +137,24 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           {property.bedrooms > 0 && (
             <span className="flex items-center gap-1" title="Bedrooms">
               <BedDouble size={13} className="text-[#1C4D8C]" />
-              {property.bedrooms} <span className="text-[#667085] text-[10px] font-normal">Beds</span>
+              <AnimatedCounter value={property.bedrooms} decimals={property.bedrooms % 1 === 0 ? 0 : 1} /> <span className="text-[#667085] text-[10px] font-normal">Beds</span>
             </span>
           )}
           {property.bathrooms > 0 && (
             <span className="flex items-center gap-1" title="Bathrooms">
               <Bath size={13} className="text-[#1C4D8C]" />
-              {property.bathrooms} <span className="text-[#667085] text-[10px] font-normal">Baths</span>
+              <AnimatedCounter value={property.bathrooms} decimals={property.bathrooms % 1 === 0 ? 0 : 1} /> <span className="text-[#667085] text-[10px] font-normal">Baths</span>
             </span>
           )}
           {property.cars > 0 && (
             <span className="flex items-center gap-1" title="Car Spaces">
               <Car size={13} className="text-[#1C4D8C]" />
-              {property.cars} <span className="text-[#667085] text-[10px] font-normal">Cars</span>
+              <AnimatedCounter value={property.cars} decimals={property.cars % 1 === 0 ? 0 : 1} /> <span className="text-[#667085] text-[10px] font-normal">Cars</span>
             </span>
           )}
           <span className="flex items-center gap-1 ml-auto" title="Land Size">
             <Maximize size={13} className="text-[#1C4D8C]" />
-            {property.landSize} <span className="text-[#667085] text-[10px] font-normal font-sans">sqm</span>
+            <AnimatedCounter value={property.landSize} /> <span className="text-[#667085] text-[10px] font-normal font-sans">sqm</span>
           </span>
         </div>
 

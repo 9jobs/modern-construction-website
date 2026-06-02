@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 export type AnimationVariant =
   | 'fadeUp'
@@ -12,6 +13,10 @@ export type AnimationVariant =
   | 'slideTop'
   | 'slideBottom'
   | 'zoomIn'
+  | 'zoomOut'
+  | 'scaleUp'
+  | 'blurReveal'
+  | 'imageReveal'
   | 'scrollReveal';
 
 // Custom cubic-bezier easing for that premium, luxury "slow-start fast-glide slow-end" feel.
@@ -20,7 +25,7 @@ const luxuryTransition = {
   duration: 0.85
 };
 
-const variants: Record<AnimationVariant, any> = {
+const variants: Record<AnimationVariant, Variants> = {
   fadeUp: {
     hidden: { opacity: 0, y: 35 },
     visible: { opacity: 1, y: 0 }
@@ -53,6 +58,22 @@ const variants: Record<AnimationVariant, any> = {
     hidden: { opacity: 0, scale: 0.94 },
     visible: { opacity: 1, scale: 1 }
   },
+  zoomOut: {
+    hidden: { opacity: 0, scale: 1.08 },
+    visible: { opacity: 1, scale: 1 }
+  },
+  scaleUp: {
+    hidden: { opacity: 0, scale: 0.88, y: 18 },
+    visible: { opacity: 1, scale: 1, y: 0 }
+  },
+  blurReveal: {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0 }
+  },
+  imageReveal: {
+    hidden: { opacity: 0, scale: 1.06, clipPath: 'inset(8% 0 8% 0)' },
+    visible: { opacity: 1, scale: 1, clipPath: 'inset(0% 0 0% 0)' }
+  },
   scrollReveal: {
     hidden: { opacity: 0, clipPath: 'inset(12% 0 12% 0)' },
     visible: { opacity: 1, clipPath: 'inset(0% 0 0% 0)' }
@@ -79,11 +100,13 @@ export const ScrollAnimate: React.FC<ScrollAnimateProps> = ({
   once = true
 }) => {
   const chosenVariant = variants[variant];
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
+      initial={reduceMotion ? false : 'hidden'}
+      whileInView={reduceMotion ? undefined : 'visible'}
+      animate={reduceMotion ? 'visible' : undefined}
       viewport={{ once, margin: viewportMargin }}
       variants={chosenVariant}
       transition={{
@@ -115,10 +138,13 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   viewportMargin = '-10px',
   once = true
 }) => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
+      initial={reduceMotion ? false : 'hidden'}
+      whileInView={reduceMotion ? undefined : 'visible'}
+      animate={reduceMotion ? 'visible' : undefined}
       viewport={{ once, margin: viewportMargin }}
       variants={{
         hidden: {},
@@ -150,6 +176,8 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
   duration = 0.85
 }) => {
   const chosenVariant = variants[variant];
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       variants={chosenVariant}
@@ -157,6 +185,7 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
         ...luxuryTransition,
         duration
       }}
+      animate={reduceMotion ? 'visible' : undefined}
       className={className}
     >
       {children}
@@ -170,10 +199,12 @@ interface HoverScaleProps {
 }
 
 export const HoverScale: React.FC<HoverScaleProps> = ({ children, className = '' }) => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={reduceMotion ? undefined : { scale: 1.03, filter: 'drop-shadow(0 10px 18px rgba(28, 77, 140, 0.16))' }}
+      whileTap={reduceMotion ? undefined : { scale: 0.97 }}
       className={className}
     >
       {children}
@@ -187,9 +218,11 @@ interface HoverCardProps {
 }
 
 export const HoverCard: React.FC<HoverCardProps> = ({ children, className = '' }) => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      whileHover={{ y: -6, borderColor: '#0B2341', boxShadow: '0 15px 30px -10px rgba(11, 35, 65, 0.12)' }}
+      whileHover={reduceMotion ? undefined : { y: -6, scale: 1.012, borderColor: '#0B2341', boxShadow: '0 18px 36px -14px rgba(11, 35, 65, 0.18)' }}
       className={className}
     >
       {children}
@@ -205,8 +238,10 @@ interface MagneticProps {
 export const Magnetic: React.FC<MagneticProps> = ({ children, className = '' }) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
+  const reduceMotion = useReducedMotion();
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (reduceMotion) return;
     if (!ref.current) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
@@ -232,5 +267,62 @@ export const Magnetic: React.FC<MagneticProps> = ({ children, className = '' }) 
     >
       {children}
     </motion.div>
+  );
+};
+
+interface AnimatedCounterProps {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  decimals?: number;
+  className?: string;
+}
+
+export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
+  value,
+  prefix = '',
+  suffix = '',
+  decimals,
+  className = '',
+}) => {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-10px' });
+  const reduceMotion = useReducedMotion();
+  const [displayValue, setDisplayValue] = React.useState(reduceMotion ? value : 0);
+  const precision = decimals ?? (Number.isInteger(value) ? 0 : 1);
+  const outputValue = reduceMotion ? value : displayValue;
+
+  React.useEffect(() => {
+    if (!isInView || reduceMotion) {
+      return;
+    }
+
+    let frameId = 0;
+    const start = performance.now();
+    const duration = 1100;
+
+    const tick = (time: number) => {
+      const progress = Math.min((time - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(value * eased);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [isInView, precision, reduceMotion, value]);
+
+  return (
+    <span ref={ref} className={className}>
+      {prefix}
+      {outputValue.toLocaleString('en-AU', {
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision,
+      })}
+      {suffix}
+    </span>
   );
 };

@@ -5,7 +5,7 @@ import { useProperties } from '../context/PropertyContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, BedDouble, Bath, Car, Maximize, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { Magnetic } from './ScrollReveal';
+import { AnimatedCounter, Magnetic } from './ScrollReveal';
 
 export const PropertyDetailModal: React.FC = () => {
   const { activePropertyForModal, setActivePropertyForModal } = useProperties();
@@ -92,24 +92,24 @@ export const PropertyDetailModal: React.FC = () => {
                   {activePropertyForModal.bedrooms > 0 && (
                     <span className="flex items-center gap-1.5">
                       <BedDouble size={14} className="text-[#1C4D8C]" />
-                      {activePropertyForModal.bedrooms} <span className="text-[#667085] text-[10px] font-normal">Beds</span>
+                      <AnimatedCounter value={activePropertyForModal.bedrooms} decimals={activePropertyForModal.bedrooms % 1 === 0 ? 0 : 1} /> <span className="text-[#667085] text-[10px] font-normal">Beds</span>
                     </span>
                   )}
                   {activePropertyForModal.bathrooms > 0 && (
                     <span className="flex items-center gap-1.5">
                       <Bath size={14} className="text-[#1C4D8C]" />
-                      {activePropertyForModal.bathrooms} <span className="text-[#667085] text-[10px] font-normal">Baths</span>
+                      <AnimatedCounter value={activePropertyForModal.bathrooms} decimals={activePropertyForModal.bathrooms % 1 === 0 ? 0 : 1} /> <span className="text-[#667085] text-[10px] font-normal">Baths</span>
                     </span>
                   )}
                   {activePropertyForModal.cars > 0 && (
                     <span className="flex items-center gap-1.5">
                       <Car size={14} className="text-[#1C4D8C]" />
-                      {activePropertyForModal.cars} <span className="text-[#667085] text-[10px] font-normal">Cars</span>
+                      <AnimatedCounter value={activePropertyForModal.cars} decimals={activePropertyForModal.cars % 1 === 0 ? 0 : 1} /> <span className="text-[#667085] text-[10px] font-normal">Cars</span>
                     </span>
                   )}
                   <span className="flex items-center gap-1.5">
                     <Maximize size={14} className="text-[#1C4D8C]" />
-                    {activePropertyForModal.landSize} <span className="text-[#667085] text-[10px] font-normal">sqm Land</span>
+                    <AnimatedCounter value={activePropertyForModal.landSize} /> <span className="text-[#667085] text-[10px] font-normal">sqm Land</span>
                   </span>
                 </div>
               </div>

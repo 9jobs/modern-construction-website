@@ -10,7 +10,7 @@ const footerGroups = [
   {
     title: 'Build',
     links: [
-      { label: 'House Designs', href: '/house-designs' },
+      { label: 'Home Designs', href: '/home-designs' },
       { label: 'House & Land', href: '/house-and-land' },
       { label: 'Display Homes', href: '/display-homes' },
       { label: 'Build with Modern-Property', href: '/build-with-aura' },
@@ -19,15 +19,16 @@ const footerGroups = [
   {
     title: 'Buy',
     links: [
+      { label: 'First Home Buyers', href: '/first-home-buyers' },
+      { label: 'Current Offers', href: '/current-offers' },
       { label: 'Properties', href: '/properties' },
       { label: 'Land Estates', href: '/land-estates' },
-      { label: 'New Builds', href: '/new-builds' },
-      { label: 'Renovated Homes', href: '/renovated-homes' },
     ],
   },
   {
     title: 'Develop',
     links: [
+      { label: 'Knockdown Rebuild', href: '/knockdown-rebuild' },
       { label: 'Development Sites', href: '/development-sites' },
       { label: 'Development Projects', href: '/development-projects' },
       { label: 'Investment Properties', href: '/investment-properties' },
@@ -37,6 +38,7 @@ const footerGroups = [
   {
     title: 'Modern-Property',
     links: [
+      { label: 'Style Inspiration', href: '/style-inspiration' },
       { label: 'About', href: '/about' },
       { label: 'Blog', href: '/blog' },
       { label: 'Customer Portal', href: '/customer-portal' },

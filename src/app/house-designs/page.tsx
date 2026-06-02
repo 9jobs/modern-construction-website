@@ -2,15 +2,18 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Bath, BedDouble, Car, Check, Info, Ruler } from 'lucide-react';
+import { ArrowRight, Bath, BedDouble, Car, Check, Eye, Info, Ruler } from 'lucide-react';
 import { CTASection, PageHero, SectionHeading } from '../../components/MarketingSections';
+import { QuickViewPopup } from '../../components/QuickViewPopup';
+import { AnimatedCounter } from '../../components/ScrollReveal';
 import { pageHeroContent } from '../../data/siteContent';
-import { houseDesignsData } from '../../data/properties';
+import { houseDesignsData, type HouseDesign } from '../../data/properties';
 
 export default function HouseDesignsPage() {
   const [storeyFilter, setStoreyFilter] = useState<'ALL' | 'single' | 'double'>('ALL');
   const [widthFilter, setWidthFilter] = useState<'ALL' | 'narrow' | 'medium' | 'wide'>('ALL');
   const [budgetFilter, setBudgetFilter] = useState<number>(500000);
+  const [selectedDesign, setSelectedDesign] = useState<HouseDesign | null>(null);
 
   const filteredDesigns = houseDesignsData.filter((design) => {
     if (storeyFilter !== 'ALL' && design.type !== storeyFilter) return false;
@@ -93,23 +96,38 @@ export default function HouseDesignsPage() {
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredDesigns.map((design) => (
               <article key={design.id} className="border border-brand-border bg-white">
-                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                <button
+                  type="button"
+                  onClick={() => setSelectedDesign(design)}
+                  className="relative block aspect-[16/10] w-full overflow-hidden bg-gray-100 text-left"
+                  aria-label={`Quick view ${design.name}`}
+                >
                   <img src={design.image} alt={design.name} className="h-full w-full object-cover" />
                   <span className="absolute left-3 top-3 bg-[#0B2341] px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">
                     {design.type === 'single' ? 'Single storey' : 'Double storey'}
                   </span>
-                </div>
+                  <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 bg-white/95 px-3 py-2 text-[10px] font-extrabold uppercase tracking-wider text-[#0B2341] shadow-sm">
+                    <Eye size={12} />
+                    Quick view
+                  </span>
+                </button>
                 <div className="p-5">
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-serif text-xl font-bold text-[#0B2341]">{design.name}</h3>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDesign(design)}
+                      className="text-left font-serif text-xl font-bold text-[#0B2341] transition-colors hover:text-brand-secondary"
+                    >
+                      {design.name}
+                    </button>
                     <span className="text-sm font-extrabold text-brand-secondary">{formatPrice(design.price)}*</span>
                   </div>
                   <p className="mt-3 text-xs font-medium leading-6 text-brand-muted">{design.description}</p>
                   <div className="mt-4 flex flex-wrap gap-4 border-y border-brand-border py-4 text-xs font-bold text-[#0B2341]">
-                    <span className="inline-flex items-center gap-1"><BedDouble size={14} />{design.bedrooms} bed</span>
-                    <span className="inline-flex items-center gap-1"><Bath size={14} />{design.bathrooms} bath</span>
-                    <span className="inline-flex items-center gap-1"><Car size={14} />{design.cars} car</span>
-                    <span className="inline-flex items-center gap-1"><Ruler size={14} />{design.width}m</span>
+                    <span className="inline-flex items-center gap-1"><BedDouble size={14} /><AnimatedCounter value={design.bedrooms} /> bed</span>
+                    <span className="inline-flex items-center gap-1"><Bath size={14} /><AnimatedCounter value={design.bathrooms} decimals={design.bathrooms % 1 === 0 ? 0 : 1} /> bath</span>
+                    <span className="inline-flex items-center gap-1"><Car size={14} /><AnimatedCounter value={design.cars} /> car</span>
+                    <span className="inline-flex items-center gap-1"><Ruler size={14} /><AnimatedCounter value={design.width} decimals={design.width % 1 === 0 ? 0 : 1} />m</span>
                   </div>
                   <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] font-semibold text-[#0B2341]">
                     {design.features.slice(0, 4).map((feature) => (
@@ -119,13 +137,23 @@ export default function HouseDesignsPage() {
                       </span>
                     ))}
                   </div>
-                  <Link
-                    href={`/contact?design=${design.slug}&title=${encodeURIComponent(design.name)}`}
-                    className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-[#0B2341] px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-white hover:bg-brand-secondary"
-                  >
-                    Enquire about design
-                    <ArrowRight size={13} />
-                  </Link>
+                  <div className="mt-5 grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDesign(design)}
+                      className="inline-flex items-center justify-center gap-2 border border-brand-border px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341] hover:border-brand-secondary"
+                    >
+                      <Eye size={13} />
+                      Details
+                    </button>
+                    <Link
+                      href={`/contact?design=${design.slug}&title=${encodeURIComponent(design.name)}`}
+                      className="inline-flex items-center justify-center gap-2 bg-[#0B2341] px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-white hover:bg-brand-secondary"
+                    >
+                      Enquire
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}
@@ -161,6 +189,29 @@ export default function HouseDesignsPage() {
         href="/contact?interest=Home%20Design"
         label="Match my block"
       />
+
+      {selectedDesign ? (
+        <QuickViewPopup
+          isOpen={Boolean(selectedDesign)}
+          onClose={() => setSelectedDesign(null)}
+          kicker={selectedDesign.type === 'single' ? 'Single storey home design' : 'Double storey home design'}
+          title={selectedDesign.name}
+          image={selectedDesign.image}
+          description={selectedDesign.description}
+          stats={[
+            { label: 'Beds', value: <AnimatedCounter value={selectedDesign.bedrooms} />, icon: BedDouble },
+            { label: 'Baths', value: <AnimatedCounter value={selectedDesign.bathrooms} decimals={selectedDesign.bathrooms % 1 === 0 ? 0 : 1} />, icon: Bath },
+            { label: 'Cars', value: <AnimatedCounter value={selectedDesign.cars} />, icon: Car },
+            { label: 'Width', value: <><AnimatedCounter value={selectedDesign.width} decimals={selectedDesign.width % 1 === 0 ? 0 : 1} />m</>, icon: Ruler },
+          ]}
+          features={selectedDesign.features}
+          note={`${formatPrice(selectedDesign.price)} house-only starting price. Land, site costs, developer requirements, planning fees, and upgrade selections are confirmed after block feasibility.`}
+          primaryHref={`/contact?design=${selectedDesign.slug}&title=${encodeURIComponent(selectedDesign.name)}`}
+          primaryLabel="Enquire about design"
+          secondaryHref="/display-homes"
+          secondaryLabel="Find display homes"
+        />
+      ) : null}
     </div>
   );
 }

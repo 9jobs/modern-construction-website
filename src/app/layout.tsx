@@ -6,6 +6,7 @@ import { Footer } from '../components/Footer';
 import { LocationSelector } from '../components/LocationSelector';
 import { CompareTool } from '../components/CompareTool';
 import { PropertyDetailModal } from '../components/PropertyDetailModal';
+import { MotionSiteShell } from '../components/MotionSiteShell';
 
 export const metadata: Metadata = {
   title: 'Modern-Property Acquisitions & Developments | Premium Real Estate & Construction',
@@ -29,14 +30,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap" 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&family=Pinyon+Script&family=Monsieur+La+Doulaise&display=swap" 
           rel="stylesheet" 
         />
       </head>
       <body className="bg-brand-bg text-brand-charcoal min-h-full flex flex-col selection:bg-brand-primary selection:text-white">
         <PropertyProvider>
           <Header />
-          <main className="flex-grow pb-16 md:pb-0">{children}</main>
+          <MotionSiteShell>{children}</MotionSiteShell>
           <Footer />
           <LocationSelector />
           <CompareTool />
