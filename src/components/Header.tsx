@@ -6,14 +6,12 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Calendar, ChevronDown, Heart, Menu, Phone, Search, User, X, MapPin } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AustralianState, useProperties } from '../context/PropertyContext';
+import { brand } from '../data/siteContent';
 
 const REGIONS = [
   { label: 'Melbourne', stateCode: 'VIC' as AustralianState },
-  { label: 'Sydney', stateCode: 'NSW' as AustralianState },
-  { label: 'Brisbane', stateCode: 'QLD' as AustralianState },
-  { label: 'Adelaide', stateCode: 'SA' as AustralianState },
-  { label: 'Perth', stateCode: 'WA' as AustralianState },
-  { label: 'Australia', stateCode: 'ALL' as AustralianState },
+  { label: 'Regional Victoria', stateCode: 'VIC' as AustralianState },
+  { label: 'All Victoria', stateCode: 'VIC' as AustralianState },
 ];
 
 const NAV_LINKS = [
@@ -33,7 +31,8 @@ export const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
-  const { savedProperties, selectedState, setSelectedState } = useProperties();
+  const { savedProperties, selectedState, setSelectedState, setSearchFilters } = useProperties();
+  const [isHomeDesignsHovered, setIsHomeDesignsHovered] = useState(false);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -61,6 +60,16 @@ export const Header: React.FC = () => {
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const query = searchQuery.trim();
+    setSearchFilters({
+      state: 'ALL',
+      suburb: query,
+      type: 'ALL',
+      minPrice: '',
+      maxPrice: '',
+      bedrooms: '',
+      minLand: '',
+      buildStatus: 'ALL',
+    });
     router.push(query ? `/properties?search=${encodeURIComponent(query)}` : '/properties');
     setIsOpen(false);
   };
@@ -94,7 +103,7 @@ export const Header: React.FC = () => {
                 >
                   {REGIONS.map((region) => (
                     <button
-                      key={region.stateCode}
+                      key={region.label}
                       type="button"
                       onClick={() => handleRegionSelect(region.stateCode)}
                       className={`flex w-full items-center justify-between px-3 py-2 text-left text-[11px] hover:bg-[#F4F8FB] ${
@@ -111,9 +120,9 @@ export const Header: React.FC = () => {
           </div>
 
           <div className="hidden items-center gap-4 text-[#071d38] sm:flex">
-            <a href="tel:130000MODERNPROPERTY" className="inline-flex items-center gap-1 hover:text-[#1C4D8C]">
+            <a href={`tel:${brand.phone}`} className="inline-flex items-center gap-1 hover:text-[#1C4D8C]">
               <Phone size={12} />
-              1300 00 MODERN-PROPERTY
+              {brand.phone}
             </a>
             <Link href="/customer-portal" className="inline-flex items-center gap-1 hover:text-[#1C4D8C]">
               <User size={12} />
@@ -203,25 +212,106 @@ export const Header: React.FC = () => {
             }}
             className="flex items-center justify-center gap-1 text-[11px] font-extrabold text-[#071d38]"
           >
-            {NAV_LINKS.map((link) => (
-              <motion.li 
-                key={link.href}
-                variants={{
-                  hidden: { opacity: 0, y: -8 },
-                  visible: { opacity: 1, y: 0 }
-                }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Link
-                  href={link.href}
-                  className={`block px-4 py-3 transition-colors duration-200 hover:text-[#1C4D8C] ${
-                    pathname === link.href ? 'text-[#1C4D8C] underline decoration-brand-yellow decoration-2 underline-offset-[14px]' : ''
-                  }`}
+            {NAV_LINKS.map((link) => {
+              const isHomeDesigns = link.name === 'Home Designs';
+              return (
+                <motion.li 
+                  key={link.href}
+                  variants={{
+                    hidden: { opacity: 0, y: -8 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  onMouseEnter={isHomeDesigns ? () => setIsHomeDesignsHovered(true) : undefined}
+                  onMouseLeave={isHomeDesigns ? () => setIsHomeDesignsHovered(false) : undefined}
+                  className="relative"
                 >
-                  {link.name}
-                </Link>
-              </motion.li>
-            ))}
+                  <Link
+                    href={link.href}
+                    className={`inline-flex items-center gap-1 px-4 py-3 transition-colors duration-200 hover:text-[#1C4D8C] ${
+                      pathname === link.href || (isHomeDesigns && pathname.startsWith('/home-designs'))
+                        ? 'text-[#1C4D8C] underline decoration-brand-yellow decoration-2 underline-offset-[14px]'
+                        : ''
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {isHomeDesigns && (
+                      <ChevronDown size={11} className={`transition-transform duration-200 ${isHomeDesignsHovered ? 'rotate-180 text-[#1C4D8C]' : 'text-gray-400'}`} />
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu - strictly square corners */}
+                  {isHomeDesigns && (
+                    <AnimatePresence>
+                      {isHomeDesignsHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute left-1/2 -translate-x-1/2 top-[100%] w-[320px] bg-white border border-[#DADDE2] shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-50 p-5 rounded-none flex flex-col gap-4 text-left font-sans"
+                        >
+                          <div className="border-b border-gray-100 pb-2 mb-1">
+                            <span className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#667085]">
+                              DEVELOPMENT LIFECYCLE
+                            </span>
+                          </div>
+                          
+                          <Link 
+                            href="/property-purchase"
+                            className="group flex flex-col hover:bg-[#F8FBFD] p-2 transition-colors duration-200 rounded-none text-left"
+                            onClick={() => setIsHomeDesignsHovered(false)}
+                          >
+                            <span className="text-[11px] font-extrabold text-[#0B2341] group-hover:text-[#1C4D8C] transition-colors uppercase tracking-wider">
+                              1. Property Purchase
+                            </span>
+                            <span className="text-[10px] text-[#667085] font-medium mt-1 leading-normal">
+                              Shortlist old homes, zoned land, and high-yield split allotments.
+                            </span>
+                          </Link>
+
+                          <Link 
+                            href="/civil-construction"
+                            className="group flex flex-col hover:bg-[#F8FBFD] p-2 transition-colors duration-200 rounded-none text-left"
+                            onClick={() => setIsHomeDesignsHovered(false)}
+                          >
+                            <span className="text-[11px] font-extrabold text-[#0B2341] group-hover:text-[#1C4D8C] transition-colors uppercase tracking-wider">
+                              2. Civil Construction
+                            </span>
+                            <span className="text-[10px] text-[#667085] font-medium mt-1 leading-normal">
+                              Engineered civil foundations, structural frames, and quality checkpoints.
+                            </span>
+                          </Link>
+
+                          <Link 
+                            href="/structural-shells"
+                            className="group flex flex-col hover:bg-[#F8FBFD] p-2 transition-colors duration-200 rounded-none text-left"
+                            onClick={() => setIsHomeDesignsHovered(false)}
+                          >
+                            <span className="text-[11px] font-extrabold text-[#0B2341] group-hover:text-[#1C4D8C] transition-colors uppercase tracking-wider">
+                              3. Structural Shells
+                            </span>
+                            <span className="text-[10px] text-[#667085] font-medium mt-1 leading-normal">
+                              View completed lock-up stages, showcase homes, and structural shells.
+                            </span>
+                          </Link>
+
+                          <div className="border-t border-gray-100 pt-3 mt-1 flex justify-center">
+                            <Link 
+                              href="/home-designs"
+                              className="text-[10px] font-extrabold uppercase tracking-widest text-[#1C4D8C] hover:text-[#0B2341] transition-colors"
+                              onClick={() => setIsHomeDesignsHovered(false)}
+                            >
+                              Explore All Home Designs →
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
+                </motion.li>
+              );
+            })}
           </motion.ul>
         </div>
       </motion.nav>
@@ -247,30 +337,59 @@ export const Header: React.FC = () => {
                 </button>
               </form>
               <ul className="mt-4 divide-y divide-[#E8EDF2] text-xs font-extrabold text-[#071d38]">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`block py-3 ${pathname === link.href ? 'text-[#1C4D8C]' : ''}`}
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
+                {NAV_LINKS.map((link) => {
+                  const isHomeDesigns = link.name === 'Home Designs';
+                  return (
+                    <li key={link.href} className="flex flex-col">
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`block py-3 ${pathname === link.href ? 'text-[#1C4D8C]' : ''}`}
+                      >
+                        {link.name}
+                      </Link>
+                      
+                      {isHomeDesigns && (
+                        <div className="pl-4 pb-2 flex flex-col gap-2.5 text-[11px] border-l-2 border-[#DADDE2] ml-2 mb-2 font-sans text-left">
+                          <Link 
+                            href="/property-purchase"
+                            onClick={() => setIsOpen(false)}
+                            className="py-1 text-[#0B2341] hover:text-[#1C4D8C] font-extrabold"
+                          >
+                            1. Property Purchase
+                          </Link>
+                          <Link 
+                            href="/civil-construction"
+                            onClick={() => setIsOpen(false)}
+                            className="py-1 text-[#0B2341] hover:text-[#1C4D8C] font-extrabold"
+                          >
+                            2. Civil Construction
+                          </Link>
+                          <Link 
+                            href="/structural-shells"
+                            onClick={() => setIsOpen(false)}
+                            className="py-1 text-[#0B2341] hover:text-[#1C4D8C] font-extrabold"
+                          >
+                            3. Completed Shells
+                          </Link>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
               <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[10px] font-extrabold text-[#071d38]">
-                <a href="tel:130000MODERNPROPERTY" className="border border-[#DADDE2] py-2">
+                <a href={`tel:${brand.phone}`} className="border border-[#DADDE2] py-2">
                   <Phone size={14} className="mx-auto mb-1" />
                   Call
                 </a>
-                <Link href="/contact?interest=Display" className="border border-[#DADDE2] py-2">
+                <Link href="/contact?interest=Display" onClick={() => setIsOpen(false)} className="border border-[#DADDE2] py-2">
                   <Calendar size={14} className="mx-auto mb-1" />
                   Visit
                 </Link>
-                <Link href="/properties?saved=true" className="border border-[#DADDE2] py-2">
-                  <Heart size={14} className="mx-auto mb-1" />
-                  Saved
+                <Link href="/properties?saved=true" onClick={() => setIsOpen(false)} className="border border-[#DADDE2] py-2">
+                  <Heart size={14} className={`mx-auto mb-1 ${savedProperties.length > 0 ? 'fill-[#1C4D8C] text-[#1C4D8C]' : ''}`} />
+                  Saved ({savedProperties.length})
                 </Link>
               </div>
             </div>

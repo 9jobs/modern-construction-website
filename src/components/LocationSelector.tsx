@@ -107,7 +107,7 @@ export const LocationSelector: React.FC = () => {
                   onClick={handleSelectAll}
                   className="text-xs font-bold text-[#1C4D8C] hover:text-[#0B2341] underline underline-offset-4 decoration-[#1C4D8C] transition-colors rounded-none"
                 >
-                  View All Australian Properties
+                  View All Victoria Properties
                 </button>
               </div>
             </div>

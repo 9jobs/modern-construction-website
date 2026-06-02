@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import {
@@ -23,7 +23,7 @@ import {
 import { propertiesData } from '../../../data/properties';
 import { useProperties } from '../../../context/PropertyContext';
 import { ConstructionTimeline, SectionHeading } from '../../../components/MarketingSections';
-import { constructionSteps } from '../../../data/siteContent';
+import { constructionSteps, brand } from '../../../data/siteContent';
 
 const tabs = ['overview', 'build path', 'specs', 'location'] as const;
 
@@ -44,6 +44,15 @@ export default function PropertyDetailPage() {
     timeframe: 'immediate',
     message: '',
   });
+
+  useEffect(() => {
+    if (property && !formData.message) {
+      setFormData((prev) => ({
+        ...prev,
+        message: `Hi, I am interested in inquiring about: ${property.title}. Please provide further details.`,
+      }));
+    }
+  }, [property]);
 
   if (!property) {
     return (
@@ -354,7 +363,7 @@ export default function PropertyDetailPage() {
               )}
 
               <div className="mt-4 grid grid-cols-2 gap-2">
-                <a href="tel:130000MODERNPROPERTY" className="inline-flex items-center justify-center gap-2 border border-brand-border px-3 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341]">
+                <a href={`tel:${brand.phone}`} className="inline-flex items-center justify-center gap-2 border border-brand-border px-3 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341]">
                   <Phone size={14} />
                   Call
                 </a>
@@ -369,7 +378,7 @@ export default function PropertyDetailPage() {
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-brand-border bg-white p-2 text-center text-[10px] font-extrabold uppercase tracking-wider text-[#0B2341] md:hidden">
-        <a href="tel:130000MODERNPROPERTY" className="py-2">Call</a>
+        <a href={`tel:${brand.phone}`} className="py-2">Call</a>
         <button onClick={() => toggleSaveProperty(property.id)} className="py-2">{isSaved ? 'Saved' : 'Save'}</button>
         <button onClick={() => document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-[#0B2341] py-2 text-white">Enquire</button>
       </div>

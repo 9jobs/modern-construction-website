@@ -42,7 +42,7 @@ export function PageHero({
         <ScrollAnimate variant="fadeIn" duration={1.5} className="h-full w-full">
           <img src={image} alt="" className="h-full w-full object-cover" />
         </ScrollAnimate>
-        <div className="absolute inset-0 bg-[#08182d]/72" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08182d]/85 via-[#08182d]/75 to-[#08182d]/45 lg:bg-gradient-to-r lg:from-[#08182d]/92 lg:via-[#08182d]/80 lg:to-[#08182d]/40" />
       </div>
       <div className="relative mx-auto grid min-h-[420px] max-w-[1512px] grid-cols-1 items-end gap-8 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
         <div className="lg:col-span-7">

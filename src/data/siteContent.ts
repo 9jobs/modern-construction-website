@@ -16,8 +16,8 @@ import {
 } from 'lucide-react';
 
 export const brand = {
-  phone: '1300 00 MODERN-PROPERTY',
-  email: 'enquire@modern-property.com.au',
+  phone: '+61 422 552 002',
+  email: 'modern.properties15@gmail.com',
   headline: 'Acquire. Develop. Execute. Sell.',
   shortPromise: 'Modern-property is a premium real estate development company. We acquire high-potential properties, develop them through quality construction and planning, and execute sales of premium residential and commercial holdings.',
 };

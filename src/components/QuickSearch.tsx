@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, SlidersHorizontal, RotateCcw, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AustralianState } from '../context/PropertyContext';
+import { AustralianState, useProperties } from '../context/PropertyContext';
 
 const TABS = [
   { id: 'house-land', label: 'House & Land' },
@@ -19,6 +19,7 @@ const TABS = [
 export const QuickSearch: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { setSearchFilters, resetFilters } = useProperties();
 
   // Local state for search filters matching Metricon guidelines
   const [activeTab, setActiveTab] = useState(searchParams.get('type') || 'house-land');
@@ -31,6 +32,18 @@ export const QuickSearch: React.FC = () => {
   const [buildStatus, setBuildStatus] = useState(searchParams.get('buildStatus') || 'ALL');
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
+  // Sync local state with URL search params when they change
+  useEffect(() => {
+    setActiveTab(searchParams.get('type') || 'house-land');
+    setState((searchParams.get('state') as AustralianState) || 'ALL');
+    setSuburb(searchParams.get('suburb') || searchParams.get('search') || '');
+    setBudget(searchParams.get('budget') || '');
+    setBedrooms(searchParams.get('bedrooms') || '');
+    setBathrooms(searchParams.get('bathrooms') || '');
+    setLandSize(searchParams.get('landSize') || '');
+    setBuildStatus(searchParams.get('buildStatus') || 'ALL');
+  }, [searchParams]);
+
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
     if (tabId === 'house-designs') {
@@ -40,6 +53,18 @@ export const QuickSearch: React.FC = () => {
 
   const handleSearchSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+    
+    // Update context filters directly for instant, reliable UI response
+    setSearchFilters({
+      state,
+      suburb: suburb.trim(),
+      type: activeTab,
+      minPrice: '',
+      maxPrice: budget,
+      bedrooms,
+      minLand: landSize,
+      buildStatus
+    });
     
     const params = new URLSearchParams();
     if (activeTab) params.set('type', activeTab);
@@ -63,6 +88,7 @@ export const QuickSearch: React.FC = () => {
     setBathrooms('');
     setLandSize('');
     setBuildStatus('ALL');
+    resetFilters();
   };
 
   return (
@@ -96,12 +122,8 @@ export const QuickSearch: React.FC = () => {
             onChange={(e) => setState(e.target.value as AustralianState)}
             className="w-full bg-[#F5F6F8] border border-[#DADDE2] text-[#222222] text-xs py-2.5 px-3 font-semibold outline-none focus:border-[#1C4D8C] focus:bg-white transition-colors"
           >
-            <option value="ALL">All States</option>
+            <option value="ALL">All Victoria</option>
             <option value="VIC">Victoria (VIC)</option>
-            <option value="NSW">New South Wales (NSW)</option>
-            <option value="QLD">Queensland (QLD)</option>
-            <option value="SA">South Australia (SA)</option>
-            <option value="WA">Western Australia (WA)</option>
           </select>
         </div>
 
@@ -292,12 +314,8 @@ export const QuickSearch: React.FC = () => {
                     onChange={(e) => setState(e.target.value as AustralianState)}
                     className="w-full bg-[#F5F6F8] border border-[#DADDE2] rounded-none py-2.5 px-3 font-bold outline-none"
                   >
-                    <option value="ALL">All States</option>
+                    <option value="ALL">All Victoria</option>
                     <option value="VIC">Victoria (VIC)</option>
-                    <option value="NSW">New South Wales (NSW)</option>
-                    <option value="QLD">Queensland (QLD)</option>
-                    <option value="SA">South Australia (SA)</option>
-                    <option value="WA">Western Australia (WA)</option>
                   </select>
                 </div>
 

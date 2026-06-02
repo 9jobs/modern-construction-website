@@ -129,7 +129,7 @@ export interface InvestmentProperty {
 // ----------------------------------------------------
 // 1. ACTIVE PROPERTIES DIRECTORY LISTINGS (26 Items)
 // ----------------------------------------------------
-export const propertiesData: Property[] = [
+const rawPropertiesData: Property[] = [
   // HOUSE & LAND PACKAGES (6 Items)
   {
     id: 'hl-1',
@@ -873,7 +873,7 @@ export const propertiesData: Property[] = [
 // ----------------------------------------------------
 // 2. HOUSE DESIGNS CATALOG (8 Items)
 // ----------------------------------------------------
-export const houseDesignsData: HouseDesign[] = [
+const rawHouseDesignsData: HouseDesign[] = [
   {
     id: 'des-1',
     slug: 'grandview-290',
@@ -999,7 +999,7 @@ export const houseDesignsData: HouseDesign[] = [
 // ----------------------------------------------------
 // 3. DISPLAY VILLAGE HOMES (6 Items)
 // ----------------------------------------------------
-export const displayHomesData: DisplayHome[] = [
+const rawDisplayHomesData: DisplayHome[] = [
   {
     id: 'dh-1',
     slug: 'the-emperor-display-mulgrave',
@@ -1107,7 +1107,7 @@ export const displayHomesData: DisplayHome[] = [
 // ----------------------------------------------------
 // 4. LAND ESTATES (6 Items)
 // ----------------------------------------------------
-export const landEstatesData: LandEstate[] = [
+const rawLandEstatesData: LandEstate[] = [
   {
     id: 'est-1',
     slug: 'the-gables-box-hill',
@@ -1185,7 +1185,7 @@ export const landEstatesData: LandEstate[] = [
 // ----------------------------------------------------
 // 5. RENOVATED HOMES CASE STUDIES (6 Items)
 // ----------------------------------------------------
-export const renovatedHomesData: RenovatedHome[] = [
+const rawRenovatedHomesData: RenovatedHome[] = [
   {
     id: 'ren-1',
     slug: 'brighton-revival-renovated',
@@ -1287,7 +1287,7 @@ export const renovatedHomesData: RenovatedHome[] = [
 // ----------------------------------------------------
 // 6. DEVELOPMENT SITES (6 Items)
 // ----------------------------------------------------
-export const developmentSitesData: DevelopmentSite[] = [
+const rawDevelopmentSitesData: DevelopmentSite[] = [
   {
     id: 'dev-1',
     slug: 'multi-unit-development-site-preston',
@@ -1389,7 +1389,7 @@ export const developmentSitesData: DevelopmentSite[] = [
 // ----------------------------------------------------
 // 7. HIGH-YIELD INVESTMENT PROPERTIES (6 Items)
 // ----------------------------------------------------
-export const investmentPropertiesData: InvestmentProperty[] = [
+const rawInvestmentPropertiesData: InvestmentProperty[] = [
   {
     id: 'inv-1',
     slug: 'loganholme-dual-occupancy-yield',
@@ -1487,3 +1487,11 @@ export const investmentPropertiesData: InvestmentProperty[] = [
     features: ['Fully Managed Tenancy', 'Premium kitchen appliances', 'Double storey brick sidetrack', 'Tax write-offs ready']
   }
 ];
+
+export const propertiesData: Property[] = rawPropertiesData.filter(p => p.state === 'VIC');
+export const displayHomesData: DisplayHome[] = rawDisplayHomesData.filter(p => p.state === 'VIC');
+export const landEstatesData: LandEstate[] = rawLandEstatesData.filter(p => p.state === 'VIC');
+export const renovatedHomesData: RenovatedHome[] = rawRenovatedHomesData.filter(p => p.state === 'VIC');
+export const developmentSitesData: DevelopmentSite[] = rawDevelopmentSitesData.filter(p => p.state === 'VIC');
+export const investmentPropertiesData: InvestmentProperty[] = rawInvestmentPropertiesData.filter(p => p.state === 'VIC');
+export const houseDesignsData: HouseDesign[] = rawHouseDesignsData;

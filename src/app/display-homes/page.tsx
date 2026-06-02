@@ -9,7 +9,7 @@ import { AnimatedCounter } from '../../components/ScrollReveal';
 import { pageHeroContent } from '../../data/siteContent';
 import { displayHomesData, type DisplayHome } from '../../data/properties';
 
-const states = ['ALL', 'VIC', 'NSW', 'QLD', 'SA', 'WA'] as const;
+const states = ['ALL', 'VIC'] as const;
 
 export default function DisplayHomesPage() {
   const [selectedState, setSelectedState] = useState<(typeof states)[number]>('ALL');
@@ -47,7 +47,7 @@ export default function DisplayHomesPage() {
                   : 'border-brand-border bg-white text-[#0B2341] hover:border-brand-secondary'
               }`}
             >
-              {state === 'ALL' ? 'All regions' : state}
+              {state === 'ALL' ? 'All Victoria' : 'Victoria (VIC)'}
             </button>
           ))}
         </div>

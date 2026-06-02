@@ -133,7 +133,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         </p>
 
         {/* Specifications Grid */}
-        <div className="flex items-center gap-3 text-[#222222] text-xs border-t border-[#DADDE2] pt-3.5 pb-2.5 mb-3 mt-auto font-semibold">
+        <div className="flex flex-wrap items-center gap-3 text-[#222222] text-xs border-t border-[#DADDE2] pt-3.5 pb-2.5 mb-3 mt-auto font-semibold">
           {property.bedrooms > 0 && (
             <span className="flex items-center gap-1" title="Bedrooms">
               <BedDouble size={13} className="text-[#1C4D8C]" />
@@ -159,7 +159,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         </div>
 
         {/* Pricing & Actions */}
-        <div className="flex justify-between items-center gap-2 pt-3 border-t border-[#DADDE2]">
+        <div className="flex flex-wrap justify-between items-center gap-2 pt-3 border-t border-[#DADDE2]">
           <div>
             <span className="text-[9px] text-[#667085] uppercase font-bold block mb-0.5">Guide price</span>
             <span className="text-base font-extrabold font-serif text-[#222222] leading-none">

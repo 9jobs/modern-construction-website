@@ -33,9 +33,63 @@ export const MapListings: React.FC<MapListingsProps> = ({ mode = 'all' }) => {
     if (searchFilters.type !== 'ALL' && prop.type !== searchFilters.type) {
       return false;
     }
-    // Suburb Filter
-    if (searchFilters.suburb && !prop.suburb.toLowerCase().includes(searchFilters.suburb.toLowerCase())) {
-      return false;
+    // Suburb / Search Filter
+    if (searchFilters.suburb) {
+      const term = searchFilters.suburb.toLowerCase().trim();
+      const getPropertyTypeName = (type: string) => {
+        switch (type) {
+          case 'house-land': return 'house & land';
+          case 'land-only': return 'land + build option';
+          case 'renovated': return 'completed home';
+          case 'old-home': return 'development site';
+          case 'new-build': return 'new build';
+          case 'investment': return 'investment';
+          case 'display': return 'display home';
+          default: return 'residential';
+        }
+      };
+
+      // Synonym / Category matching flags
+      const isPropertySearch = term === 'property' || term === 'properties';
+      const isHouseSearch = term === 'house' || term === 'home' || term === 'houses' || term === 'homes';
+      const isLandSearch = term === 'land' || term === 'lot' || term === 'allotment';
+      const isPropertyPurchaseSearch = term.includes('property purchase') || term.includes('property buy') || term.includes('buy property') || term.includes('purchase');
+      const isConstructionSearch = term.includes('construction') || term.includes('civil') || term.includes('build');
+      const isShellSearch = term.includes('shell') || term.includes('shells') || term.includes('lock-up');
+
+      let matchCategory = false;
+      if (isPropertySearch) {
+        matchCategory = true;
+      }
+      if (isHouseSearch && (prop.type === 'house-land' || prop.type === 'new-build' || prop.type === 'display' || prop.type === 'renovated' || prop.type === 'old-home' || prop.bedrooms > 0 || (prop.houseName && prop.houseName.length > 0))) {
+        matchCategory = true;
+      }
+      if (isLandSearch && (prop.type === 'land-only' || prop.type === 'house-land' || prop.landSize > 0)) {
+        matchCategory = true;
+      }
+      if (isPropertyPurchaseSearch && prop.type === 'old-home') {
+        matchCategory = true;
+      }
+      if (isConstructionSearch && (prop.buildStatus === 'Under Construction' || prop.buildStatus === 'Ready to Build' || prop.type === 'new-build' || prop.type === 'house-land')) {
+        matchCategory = true;
+      }
+      if (isShellSearch && (prop.type === 'new-build' || prop.buildStatus === 'Completed' || prop.buildStatus === 'Ready to Build')) {
+        matchCategory = true;
+      }
+
+      const matchSuburb = prop.suburb.toLowerCase().includes(term);
+      const matchTitle = prop.title.toLowerCase().includes(term);
+      const matchDesc = prop.description.toLowerCase().includes(term);
+      const matchState = prop.state.toLowerCase().includes(term);
+      const matchType = prop.type.toLowerCase().includes(term) || getPropertyTypeName(prop.type).toLowerCase().includes(term);
+      const matchEstate = prop.estateName ? prop.estateName.toLowerCase().includes(term) : false;
+      const matchHouse = prop.houseName ? prop.houseName.toLowerCase().includes(term) : false;
+      const matchFeatures = prop.features.some(f => f.toLowerCase().includes(term));
+      const matchPotential = prop.developmentPotential ? prop.developmentPotential.toLowerCase().includes(term) : false;
+
+      if (!matchCategory && !matchSuburb && !matchTitle && !matchDesc && !matchState && !matchType && !matchEstate && !matchHouse && !matchFeatures && !matchPotential) {
+        return false;
+      }
     }
     // Price Filter
     if (searchFilters.maxPrice && prop.price > Number(searchFilters.maxPrice)) {

@@ -7,7 +7,7 @@ import { CTASection, IconCardGrid, PageHero, SectionHeading } from '../../compon
 import { pageHeroContent, trustPoints } from '../../data/siteContent';
 import { landEstatesData } from '../../data/properties';
 
-const states = ['ALL', 'VIC', 'NSW', 'QLD', 'SA', 'WA'] as const;
+const states = ['ALL', 'VIC'] as const;
 const releaseStatuses = ['ALL', 'Selling Fast', 'Registering Now', 'Limited Release', 'Stage 1 Sold Out'] as const;
 
 export default function LandEstatesPage() {
@@ -51,7 +51,7 @@ export default function LandEstatesPage() {
                     selectedState === state ? 'border-[#0B2341] bg-[#0B2341] text-white' : 'border-brand-border bg-white text-[#0B2341]'
                   }`}
                 >
-                  {state === 'ALL' ? 'All' : state}
+                  {state === 'ALL' ? 'All Victoria' : 'Victoria (VIC)'}
                 </button>
               ))}
             </div>

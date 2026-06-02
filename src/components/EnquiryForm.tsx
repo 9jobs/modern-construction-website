@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Award, CheckCircle, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { brand } from '../data/siteContent';
 
 export const EnquiryForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,46 @@ export const EnquiryForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const interestParam = params.get('interest') || '';
+      const titleParam = params.get('title') || '';
+      const idParam = params.get('id') || '';
+      const stateParam = params.get('state') || '';
+
+      let mappedInterest = '';
+      if (interestParam) {
+        const lowerInterest = interestParam.toLowerCase();
+        if (lowerInterest.includes('house') || lowerInterest.includes('hl') || lowerInterest === 'house-land') {
+          mappedInterest = 'House & Land Pack';
+        } else if (lowerInterest.includes('land') || lowerInterest === 'land-only') {
+          mappedInterest = 'Land Only subdivision';
+        } else if (lowerInterest.includes('renovated') || lowerInterest.includes('ren')) {
+          mappedInterest = 'Renovated Home';
+        } else if (lowerInterest.includes('develop') || lowerInterest.includes('dev') || lowerInterest === 'old-home') {
+          mappedInterest = 'Develop Old Site';
+        } else if (lowerInterest.includes('investment') || lowerInterest.includes('inv')) {
+          mappedInterest = 'Investment Portfolio';
+        } else if (lowerInterest.includes('construction') || lowerInterest.includes('civil') || lowerInterest.includes('display') || lowerInterest.includes('visit')) {
+          mappedInterest = 'Construction Service';
+        }
+      }
+
+      let initialMessage = '';
+      if (titleParam) {
+        initialMessage = `Hi, I am interested in inquiring about: ${titleParam}${idParam ? ` (Ref: ${idParam})` : ''}. Please provide further details.`;
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        interest: mappedInterest || prev.interest,
+        state: stateParam || prev.state,
+        message: initialMessage || prev.message
+      }));
+    }
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -26,7 +67,7 @@ export const EnquiryForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+ 
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
@@ -42,7 +83,7 @@ export const EnquiryForm: React.FC = () => {
       setTimeout(() => setSubmitted(false), 5000);
     }, 1200);
   };
-
+ 
   return (
     <div className="bg-white border border-brand-border rounded-2xl overflow-hidden shadow-premium font-sans grid grid-cols-1 lg:grid-cols-5 max-w-[1512px] mx-auto">
       
@@ -60,7 +101,7 @@ export const EnquiryForm: React.FC = () => {
               Whether you are submitting an estate for direct acquisition, looking for subdivided land allotments, searching for high-ROI developed residential villas, or checking active construction milestones, our team is ready to respond.
             </p>
           </div>
-
+ 
           {/* Core Info list */}
           <div className="flex flex-col gap-4 text-xs text-brand-charcoal font-semibold">
             <div className="flex items-center gap-3">
@@ -69,20 +110,20 @@ export const EnquiryForm: React.FC = () => {
               </div>
               <div>
                 <span className="text-[9px] text-brand-textMuted uppercase block font-bold">General Hotline</span>
-                <a href="tel:130000MODERNPROPERTY" className="hover:text-brand-primary transition-colors font-bold text-sm">1300 00 MODERN-PROPERTY</a>
+                <a href={`tel:${brand.phone}`} className="hover:text-brand-primary transition-colors font-bold text-sm">{brand.phone}</a>
               </div>
             </div>
-
+ 
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-brand-sand border border-brand-border flex items-center justify-center text-brand-primary">
                 <Mail size={14} />
               </div>
               <div>
                 <span className="text-[9px] text-brand-textMuted uppercase block font-bold">Corporate Enquiries</span>
-                <a href="mailto:enquire@modern-property.com.au" className="hover:text-brand-primary transition-colors font-bold">enquire@modern-property.com.au</a>
+                <a href={`mailto:${brand.email}`} className="hover:text-brand-primary transition-colors font-bold">{brand.email}</a>
               </div>
             </div>
-
+ 
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 rounded-full bg-brand-sand border border-brand-border flex items-center justify-center text-brand-primary mt-0.5">
                 <MapPin size={14} />
@@ -189,10 +230,6 @@ export const EnquiryForm: React.FC = () => {
               >
                 <option value="">Select State</option>
                 <option value="VIC">Victoria (VIC)</option>
-                <option value="NSW">New South Wales (NSW)</option>
-                <option value="QLD">Queensland (QLD)</option>
-                <option value="SA">South Australia (SA)</option>
-                <option value="WA">Western Australia (WA)</option>
               </select>
             </div>
           </div>
