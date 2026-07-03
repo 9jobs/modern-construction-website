@@ -6,9 +6,9 @@ import { pageHeroContent } from '../../data/siteContent';
 import { developmentSitesData, renovatedHomesData } from '../../data/properties';
 
 const projectStages = [
-  { title: 'Acquisition', icon: MapPinned, description: 'Modern-property identifies old homes, land holdings, and growth-corridor blocks where construction can create value.' },
+  { title: 'Acquisition', icon: MapPinned, description: 'Modern Properties identifies old homes, land holdings, and growth-corridor blocks where renovation or redevelopment can create value.' },
   { title: 'Planning', icon: FileCheck2, description: 'Zoning, overlays, subdivision options, service locations, engineering, and approvals are reviewed early.' },
-  { title: 'Construction', icon: Hammer, description: 'Build stages are sequenced through demolition, slab, frame, lock-up, fixing, fit-off, and quality checks.' },
+  { title: 'Delivery', icon: Hammer, description: 'Independent contractors complete the agreed renovation or development scope while progress, quality, and timing are coordinated.' },
   { title: 'Completion', icon: Building2, description: 'Projects move to sale, lease, owner handover, or investment hold with certificates and warranty documents.' },
 ];
 
@@ -45,8 +45,8 @@ export default function DevelopmentProjectsPage() {
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Project method"
-          title="How Modern-Property creates build value"
-          description="Development projects connect property acquisition, feasibility, design, approvals, construction, and final handover or sale."
+          title="How Modern Properties creates property value"
+          description="Development projects connect property acquisition, feasibility, planning, contractor coordination, and final handover or sale."
         />
         <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden border border-brand-border bg-brand-border md:grid-cols-4">
           {projectStages.map((stage) => {
@@ -95,7 +95,7 @@ export default function DevelopmentProjectsPage() {
 
       <CTASection
         title="Have a site or project idea?"
-        description="Modern-property can help check acquisition, development potential, planning risk, construction scope, and exit strategy."
+        description="Modern Properties can help check acquisition, development potential, planning risk, contractor scope, and exit strategy."
         href="/contact?interest=Development%20Project"
         label="Discuss a project"
       />

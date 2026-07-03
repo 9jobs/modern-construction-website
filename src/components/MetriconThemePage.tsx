@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { ArrowRight, CheckCircle2, Search, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Search, type LucideIcon } from 'lucide-react';
+import { FaqAccordion } from './FaqAccordion';
 
 interface FeatureCard {
   title: string;
@@ -221,17 +222,7 @@ export function MetriconThemePage({
       <section className="mx-auto max-w-[1512px] px-4 pb-14 sm:px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
           <h2 className="font-serif text-2xl font-bold md:col-span-3">FAQs:</h2>
-          <div className="space-y-7 md:col-span-8">
-            {faqs.map((faq) => (
-              <div key={faq.question}>
-                <h3 className="flex items-start gap-2 font-serif text-lg font-bold">
-                  <CheckCircle2 size={18} className="mt-1 shrink-0 text-[#1C4D8C]" />
-                  {faq.question}
-                </h3>
-                <p className="mt-2 text-xs font-medium leading-6 text-[#41556B]">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
+          <FaqAccordion faqs={faqs} />
         </div>
       </section>
     </div>

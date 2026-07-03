@@ -1,6 +1,18 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, type LucideIcon } from 'lucide-react';
+import { 
+  ArrowRight, 
+  ArrowLeft, 
+  ArrowDown, 
+  CheckCircle2, 
+  Search, 
+  Compass, 
+  Users2, 
+  Hammer, 
+  Sparkles, 
+  BadgeDollarSign, 
+  type LucideIcon 
+} from 'lucide-react';
 import { ScrollAnimate, StaggerContainer, StaggerItem, HoverScale, HoverCard } from './ScrollReveal';
 
 interface HeroSectionProps {
@@ -84,10 +96,10 @@ export function PageHero({
           </StaggerContainer>
         </div>
         <ScrollAnimate variant="fadeLeft" duration={1.1} delay={0.25} className="hidden border-l border-white/20 pl-8 text-xs font-semibold leading-6 text-white/76 lg:col-span-4 lg:col-start-9 lg:block">
-          <div className="mb-4 text-[10px] font-extrabold uppercase tracking-[0.24em] text-brand-yellow">Modern-Property build promise</div>
+          <div className="mb-4 text-[10px] font-extrabold uppercase tracking-[0.24em] text-brand-yellow">Modern Properties assurance promise</div>
           <p>
             Every enquiry is mapped to a practical path: property shortlist, site feasibility,
-            design fit, pricing, approvals, construction milestones, and handover.
+            design fit, pricing, approvals, project milestones, and handover.
           </p>
         </ScrollAnimate>
       </div>
@@ -177,19 +189,133 @@ export function IconCardGrid({ items }: { items: IconCard[] }) {
   );
 }
 
+const stepIcons = [
+  Search,
+  Compass,
+  Users2,
+  Hammer,
+  Sparkles,
+  BadgeDollarSign
+];
+
+const stepColors = [
+  { bg: 'bg-[#F4F8FB]', border: 'border-[#D4E2EE]', text: 'text-[#1C4D8C]', circle: 'bg-[#1C4D8C]/10', arrow: '#1C4D8C' },
+  { bg: 'bg-[#F5F7FA]', border: 'border-[#E2E8F0]', text: 'text-[#475569]', circle: 'bg-[#475569]/10', arrow: '#475569' },
+  { bg: 'bg-[#F0FDF4]', border: 'border-[#DCFCE7]', text: 'text-[#16A34A]', circle: 'bg-[#16A34A]/10', arrow: '#16A34A' },
+  { bg: 'bg-[#FFFBEB]', border: 'border-[#FEF3C7]', text: 'text-[#D97706]', circle: 'bg-[#D97706]/10', arrow: '#D97706' },
+  { bg: 'bg-[#ECFDF5]', border: 'border-[#D1FAE5]', text: 'text-[#059669]', circle: 'bg-[#059669]/10', arrow: '#059669' },
+  { bg: 'bg-[#F8FAFC]', border: 'border-[#E2E8F0]', text: 'text-[#0F172A]', circle: 'bg-[#0F172A]/10', arrow: '#0F172A' }
+];
+
 export function ConstructionTimeline({ steps }: { steps: StepItem[] }) {
+  const isSixSteps = steps.length === 6;
+  const isFourSteps = steps.length === 4;
+
+  const gridStepsSix = [
+    { step: steps[0], originalIndex: 0, arrow: 'right' },
+    { step: steps[1], originalIndex: 1, arrow: 'right' },
+    { step: steps[2], originalIndex: 2, arrow: 'down' },
+    { step: steps[5], originalIndex: 5, arrow: 'none' },
+    { step: steps[4], originalIndex: 4, arrow: 'left' },
+    { step: steps[3], originalIndex: 3, arrow: 'left' }
+  ];
+
+  const gridStepsFour = [
+    { step: steps[0], originalIndex: 0, arrow: 'right' },
+    { step: steps[1], originalIndex: 1, arrow: 'right' },
+    { step: steps[2], originalIndex: 2, arrow: 'right' },
+    { step: steps[3], originalIndex: 3, arrow: 'none' }
+  ];
+
+  const gridStepsDefault = steps.map((step, idx) => ({
+    step,
+    originalIndex: idx,
+    arrow: idx < steps.length - 1 ? 'right' : 'none'
+  }));
+
+  const desktopGridSteps = isSixSteps 
+    ? gridStepsSix 
+    : (isFourSteps ? gridStepsFour : gridStepsDefault);
+
+  const gridColsClass = isSixSteps 
+    ? "lg:grid-cols-3" 
+    : (isFourSteps ? "lg:grid-cols-4" : "lg:grid-cols-3");
+
   return (
-    <StaggerContainer className="grid grid-cols-1 gap-px overflow-hidden border border-brand-border bg-brand-border md:grid-cols-2 lg:grid-cols-3">
-      {steps.map((step) => (
-        <StaggerItem key={step.title} variant="fadeUp" className="bg-white p-6 h-full">
-          <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-brand-secondary">
-            Modern-property process
-          </span>
-          <h3 className="mt-3 font-serif text-xl font-bold text-[#0B2341]">{step.title}</h3>
-          <p className="mt-3 text-xs font-medium leading-6 text-brand-muted">{step.description}</p>
-        </StaggerItem>
-      ))}
-    </StaggerContainer>
+    <div className="relative w-full py-6">
+      <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:hidden">
+        {steps.map((step, idx) => {
+          const Icon = stepIcons[idx] || Search;
+          const colors = stepColors[idx] || stepColors[0];
+          return (
+            <div key={step.title} className="block">
+              <StaggerItem variant="fadeUp" className="h-full">
+                <div className="relative flex flex-col items-center text-center p-6 bg-white border border-brand-border shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-secondary h-full rounded-2xl">
+                  <div className={`absolute -top-3.5 left-6 px-3 py-1 rounded-full text-[10px] font-extrabold text-white ${idx < 3 ? 'bg-[#1C4D8C]' : 'bg-[#0B2341]'}`}>
+                    Step 0{idx + 1}
+                  </div>
+                  <div className={`mt-4 p-4 rounded-full ${colors.circle} ${colors.text} mb-4`}>
+                    <Icon size={28} />
+                  </div>
+                  <h3 className="font-serif text-lg font-bold text-[#0B2341]">{step.title}</h3>
+                  <p className="mt-3 text-xs font-semibold leading-relaxed text-[#667085]">{step.description}</p>
+                  {idx < steps.length - 1 && (
+                    <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 z-20 bg-white border border-brand-border p-1.5 rounded-full text-[#1C4D8C] shadow-sm">
+                      <ArrowDown size={14} />
+                    </div>
+                  )}
+                </div>
+              </StaggerItem>
+            </div>
+          );
+        })}
+      </StaggerContainer>
+
+      <StaggerContainer className={`hidden lg:grid grid-cols-1 gap-8 ${gridColsClass} lg:gap-y-16 lg:gap-x-12`}>
+        {desktopGridSteps.map((gridItem, gridIdx) => {
+          const step = gridItem.step;
+          if (!step) return null;
+          
+          const idx = gridItem.originalIndex;
+          const Icon = stepIcons[idx] || Search;
+          const colors = stepColors[idx] || stepColors[0];
+          
+          return (
+            <div key={`desktop-${step.title}`} className="h-full">
+              <StaggerItem variant="fadeUp" className="h-full">
+                <div className="relative flex flex-col items-center text-center p-8 bg-white border border-brand-border shadow-sm transition-all duration-300 hover:shadow-lg hover:border-brand-secondary h-full rounded-3xl min-h-[260px] justify-between">
+                  <div className={`absolute -top-3.5 left-8 px-3 py-1 rounded-full text-[10px] font-extrabold text-white ${idx < 3 ? 'bg-[#1C4D8C]' : 'bg-[#0B2341]'}`}>
+                    Step 0{idx + 1}
+                  </div>
+                  <div className="flex flex-col items-center w-full">
+                    <div className={`mt-3 p-4 rounded-full ${colors.circle} ${colors.text} mb-4`}>
+                      <Icon size={30} />
+                    </div>
+                    <h3 className="font-serif text-lg font-bold text-[#0B2341] leading-tight">{step.title}</h3>
+                    <p className="mt-3 text-xs font-semibold leading-relaxed text-[#667085]">{step.description}</p>
+                  </div>
+                  {gridItem.arrow === 'right' && (
+                    <div className="absolute -right-8 top-1/2 -translate-y-1/2 z-20 bg-white border border-brand-border p-2 rounded-full text-[#1C4D8C] shadow-md hover:scale-110 transition-transform">
+                      <ArrowRight size={18} />
+                    </div>
+                  )}
+                  {gridItem.arrow === 'left' && (
+                    <div className="absolute -left-8 top-1/2 -translate-y-1/2 z-20 bg-white border border-brand-border p-2 rounded-full text-[#1C4D8C] shadow-md hover:scale-110 transition-transform">
+                      <ArrowLeft size={18} />
+                    </div>
+                  )}
+                  {gridItem.arrow === 'down' && (
+                    <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 z-20 bg-white border border-brand-border p-2 rounded-full text-[#1C4D8C] shadow-md hover:scale-110 transition-transform">
+                      <ArrowDown size={18} />
+                    </div>
+                  )}
+                </div>
+              </StaggerItem>
+            </div>
+          );
+        })}
+      </StaggerContainer>
+    </div>
   );
 }
 
@@ -197,7 +323,7 @@ export function CTASection({
   title,
   description,
   href = '/contact',
-  label = 'Start your build enquiry',
+  label = 'Start your property enquiry',
 }: {
   title: string;
   description: string;

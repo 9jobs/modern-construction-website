@@ -42,8 +42,8 @@ export default function StudioMPage() {
       ]}
       storyTitle="Selections feel easier when the whole home is considered at once"
       storyBody={[
-        'A polished selections process helps buyers understand what is standard, what is an upgrade, and which choices have cost or construction timing impacts.',
-        'Modern-Property connects the design studio path to the chosen block, home design, build budget, estate guidelines, and approval requirements.',
+        'A polished selections process helps buyers understand what is standard, what is an upgrade, and which choices have cost or project timing impacts.',
+        'Modern Properties connects the design studio path to the chosen block, home design, build budget, estate guidelines, and approval requirements.',
       ]}
       storyImage="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85"
       proofTitle="Design studio checkpoints"

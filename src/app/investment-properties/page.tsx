@@ -45,8 +45,8 @@ export default function InvestmentPropertiesPage() {
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Investor due diligence"
-            title="Build logic behind the numbers"
-            description="Modern-property presents rental yield, estimated ROI, depreciation-ready inclusions, tenancy format, and construction or handover status in one place."
+            title="Investment logic behind the numbers"
+            description="Modern Properties presents rental yield, estimated ROI, depreciation-ready inclusions, tenancy format, and property completion status in one place."
           />
           <div className="mt-8">
             <IconCardGrid items={trustPoints} />
@@ -56,7 +56,7 @@ export default function InvestmentPropertiesPage() {
 
       <CTASection
         title="Need a build-and-hold property brief?"
-        description="Tell Modern-Property your target state, budget, yield range, loan timing, and preferred tenant format."
+        description="Tell Modern Properties your target state, budget, yield range, loan timing, and preferred tenant format."
         href="/contact?interest=Investment"
         label="Request investor shortlist"
       />

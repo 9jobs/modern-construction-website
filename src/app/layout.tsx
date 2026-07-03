@@ -9,10 +9,12 @@ import { PropertyDetailModal } from '../components/PropertyDetailModal';
 import { MotionSiteShell } from '../components/MotionSiteShell';
 
 export const metadata: Metadata = {
-  title: 'Modern-Property Acquisitions & Developments | Premium Real Estate & Construction',
-  description: 'Modern-property acquires high-potential properties, develops them through quality construction and planning, and executes sales of premium residential and commercial holdings.',
-  keywords: 'Modern-Property Developments, property acquisition, real estate development, land subdivision, premium construction, developer sales, real estate investment, multi-family portfolio',
-  authors: [{ name: 'Modern-Property Acquisitions & Developments' }],
+  title: 'Modern Properties | Property Buying, & Selling',
+  description:
+    'Modern Properties buys properties with potential, coordinates development or renovation through trusted third-party contractors, and offers completed properties for sale.',
+  keywords:
+    'Modern Properties, property buying, property selling, property development coordination, renovated properties for sale, ready-to-buy properties, property investment resale',
+  authors: [{ name: 'Modern Properties' }],
   icons: {
     icon: '/favicon.ico',
   }

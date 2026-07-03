@@ -118,7 +118,7 @@ export const MapListings: React.FC<MapListingsProps> = ({ mode = 'all' }) => {
       {/* Search statistics summary bar */}
       <div className="flex justify-between items-center text-xs md:text-sm text-brand-textMuted border-b border-brand-border pb-3">
         <span>
-          Showing <strong className="text-brand-charcoal font-bold">{filteredProperties.length}</strong> Modern-property options matching your selection
+          Showing <strong className="text-brand-charcoal font-bold">{filteredProperties.length}</strong> Modern Properties options matching your selection
         </span>
 
         {/* Mobile View Toggle Buttons */}
@@ -186,7 +186,7 @@ export const MapListings: React.FC<MapListingsProps> = ({ mode = 'all' }) => {
           <div className="bg-brand-sand border border-brand-border rounded-none p-5 text-xs leading-relaxed text-brand-textMuted shadow-xs h-fit font-medium">
             <h4 className="font-serif font-bold text-sm text-[#071d38] mb-2">Regional Development Boundaries</h4>
             <p className="mb-3">
-              Hover over glowing marker coordinates representing custom construction builds or subdivided land parcels across major Australian metropolitan sites.
+              Hover over glowing marker coordinates representing upgraded properties, development opportunities, or subdivided land parcels across major Australian metropolitan sites.
             </p>
             <p>
               Click any state vector on the map shape to filter properties dynamically to that state.

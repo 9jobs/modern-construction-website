@@ -43,7 +43,7 @@ export default function StyleInspirationPage() {
       storyTitle="Bring selections together before you build"
       storyBody={[
         'A strong home design is more than a facade. It is the way natural light, storage, finishes, outdoor space, and long-term maintenance work together.',
-        'Modern-Property uses display-home thinking to help buyers make decisions earlier, with selections that suit the land, budget, and construction path.',
+        'Modern Properties uses display-home thinking to help buyers make decisions earlier, with selections that suit the land, budget, and property plan.',
       ]}
       storyImage="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85"
       proofTitle="Style decisions we help connect"

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import {
   CTASection,
@@ -15,7 +15,7 @@ const inclusions = [
   'Developer guideline and covenant checks',
   'Soil, slope, drainage, and services coordination',
   'Engineering, documentation, and approvals pathway',
-  'Construction stage updates and handover support',
+  'Development stage updates and handover support',
 ];
 
 export default function BuildWithAuraPage() {
@@ -23,17 +23,17 @@ export default function BuildWithAuraPage() {
     <div className="bg-white font-sans text-brand-text">
       <PageHero
         {...pageHeroContent.buildWithAura}
-        primaryHref="/contact?interest=Build%20Journey"
-        primaryLabel="Start build journey"
+        primaryHref="/contact?interest=Property%20Journey"
+        primaryLabel="Start property journey"
         secondaryHref="/customer-portal"
         secondaryLabel="View portal"
       />
 
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Build journey"
+          eyebrow="Property journey"
           title="A guided path after you buy"
-          description="Whether you start with property acquisition, development planning, or construction, Modern-property connects every phase of the lifecycle—from initial feasibility and subdivisions to quality construction and property sales."
+          description="Whether you start with property acquisition, development planning, or renovation coordination, Modern Properties connects every phase of the lifecycle from feasibility and subdivisions to completed property sales."
         />
         <div className="mt-8">
           <ConstructionTimeline steps={constructionSteps} />
@@ -45,8 +45,8 @@ export default function BuildWithAuraPage() {
           <div className="lg:col-span-5">
             <SectionHeading
               eyebrow="Included support"
-              title="What Modern-property coordinates"
-              description="Your consultant and construction team keep the technical details visible before and during the build."
+              title="What Modern Properties coordinates"
+              description="Your consultant keeps scope, approvals, contractor updates, and buyer-readiness details visible throughout the project."
             />
           </div>
           <div className="grid gap-3 md:grid-cols-2 lg:col-span-7">
@@ -74,9 +74,9 @@ export default function BuildWithAuraPage() {
       <section className="border-y border-brand-border bg-white py-14">
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Build assurance"
+            eyebrow="Property assurance"
             title="Designed to reduce surprises"
-            description="The Modern-property process makes property acquisition, development potential, construction quality, and final property sales part of a seamless conversation."
+            description="The Modern Properties process makes property acquisition, development potential, quality oversight, and final property sales part of a seamless conversation."
           />
           <div className="mt-8">
             <IconCardGrid items={trustPoints} />
@@ -86,9 +86,9 @@ export default function BuildWithAuraPage() {
 
       <CTASection
         title="Start with your land, package, or suburb brief"
-        description="Modern-property will help turn your property target into a premium constructed asset with strong investment value."
-        href="/contact?interest=Build%20Journey"
-        label="Start build enquiry"
+        description="Modern Properties will help turn your property target into a premium constructed asset with strong investment value."
+        href="/contact?interest=Property%20Journey"
+        label="Start property enquiry"
       />
     </div>
   );

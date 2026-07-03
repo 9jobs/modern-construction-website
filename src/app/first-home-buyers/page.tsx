@@ -43,14 +43,14 @@ export default function FirstHomeBuyersPage() {
       storyTitle="First-home confidence comes from seeing the whole pathway"
       storyBody={[
         'First buyers often compare sticker prices without seeing site costs, developer requirements, selections, timelines, or approvals.',
-        'Modern-Property presents the purchase and build path together so buyers can compare options with a clearer picture of what happens next.',
+        'Modern Properties presents the purchase and build path together so buyers can compare options with a clearer picture of what happens next.',
       ]}
       storyImage="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85"
       proofTitle="First buyer checkpoints"
       proofPoints={[
         { title: 'Search fit', description: 'Start with state, suburb, bedrooms, budget, and timing instead of browsing every property.', icon: Search },
         { title: 'Grant questions', description: 'Eligibility can depend on state, property type, contract dates, and buyer circumstances.', icon: BadgeCheck },
-        { title: 'Build stage', description: 'Understand whether land is titled, ready to build, under construction, or complete.', icon: Home },
+        { title: 'Property stage', description: 'Understand whether the asset is newly listed, under improvement, ready to buy, or complete.', icon: Home },
         { title: 'Risk clarity', description: 'Separate land price, build price, site costs, upgrades, and approval items before signing.', icon: ShieldCheck },
       ]}
       ctaTitle="Ready to make a first-home shortlist?"

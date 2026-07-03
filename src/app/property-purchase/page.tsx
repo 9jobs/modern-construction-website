@@ -17,12 +17,12 @@ export default function PropertyPurchasePage() {
       <PageHero
         title="Premium Property Sourcing & Acquisitions"
         eyebrow="Stage 1: Property Purchase"
-        description="Acquire high-potential residential land, splitter blocks, and subdivided allotments backed by independent civil feasibility audits."
+        description="Acquire high-potential residential land, splitter blocks, and subdivided allotments backed by independent feasibility reviews."
         image="/img/home6.jpg"
         primaryHref="/properties?type=old-home"
         primaryLabel="Explore acquired sites"
         secondaryHref="/civil-construction"
-        secondaryLabel="See build stage"
+        secondaryLabel="See coordination stage"
       />
 
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
@@ -68,7 +68,7 @@ export default function PropertyPurchasePage() {
 
       <CTASection
         title="Have a specific investment region in mind?"
-        description="Provide your location criteria, target budget, and yields. Modern-Property will present matching acquired land opportunities."
+        description="Provide your location criteria, target budget, and yields. Modern Properties will present matching acquired land opportunities."
         href="/contact?interest=Property%20Acquisition"
         label="Start acquisition brief"
       />

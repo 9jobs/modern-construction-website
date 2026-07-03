@@ -37,7 +37,7 @@ export default function LandEstatesPage() {
         <SectionHeading
           eyebrow="Masterplanned releases"
           title="Compare estates before you buy land"
-          description="Review lot sizes, release status, price guide, suburbs, and build-readiness before pairing land with an Modern-property home design."
+          description="Review lot sizes, release status, price guide, suburbs, and build-readiness before pairing land with an Modern Properties home design."
         />
         <div className="mt-6 flex flex-col gap-4 border border-brand-border bg-brand-section p-5 md:flex-row md:items-end md:justify-between">
           <div>
@@ -96,7 +96,7 @@ export default function LandEstatesPage() {
                     Lots
                     <ArrowRight size={13} />
                   </Link>
-                  <button onClick={() => alert('Modern-Property masterplan and land release pack requested locally.')} className="inline-flex items-center justify-center gap-2 border border-brand-border px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341] hover:border-brand-secondary">
+                  <button onClick={() => alert('Modern Properties masterplan and land release pack requested locally.')} className="inline-flex items-center justify-center gap-2 border border-brand-border px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341] hover:border-brand-secondary">
                     <FileText size={13} />
                     Pack
                   </button>
@@ -111,8 +111,8 @@ export default function LandEstatesPage() {
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Land checks"
-            title="What Modern-Property checks before you build"
-            description="Land price is only one part of the decision. Modern-property helps check the build details that can change the real budget."
+            title="What Modern Properties checks before you build"
+            description="Land price is only one part of the decision. Modern Properties helps check the build details that can change the real budget."
           />
           <div className="mt-8">
             <IconCardGrid items={trustPoints} />
@@ -126,7 +126,7 @@ export default function LandEstatesPage() {
 
       <CTASection
         title="Found an estate you like?"
-        description="Modern-property can help compare the lot and match an appropriate single or double-storey design before you commit."
+        description="Modern Properties can help compare the lot and match an appropriate single or double-storey design before you commit."
         href="/contact?interest=Land%20Estate"
         label="Ask about an estate"
       />

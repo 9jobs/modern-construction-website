@@ -26,7 +26,7 @@ export default function LandOnlyPage() {
         <SectionHeading
           eyebrow="Land purchase support"
           title="Buy land with the build in mind"
-          description="Modern-property helps buyers check whether a block supports the home size, frontage, soil, slope, services, and estate controls they need before construction pricing."
+          description="Modern Properties helps buyers check whether a block supports the intended layout, frontage, slope, services, and estate controls before any development plan is set."
         />
         <div className="mt-8">
           <IconCardGrid items={trustPoints} />
@@ -38,7 +38,7 @@ export default function LandOnlyPage() {
           <SectionHeading
             eyebrow="Titled and build-ready lots"
             title={`Land only in ${selectedState === 'ALL' ? 'Australia' : selectedState}`}
-            description="Save lots, compare land size, then speak with Modern-property about the home designs that fit each block."
+            description="Save lots, compare land size, then speak with Modern Properties about the home designs that fit each block."
             actionHref="/contact?interest=Land"
             actionLabel="Ask about land"
           />
@@ -50,7 +50,7 @@ export default function LandOnlyPage() {
             </div>
           ) : (
             <div className="mt-8 border border-brand-border bg-white p-10 text-center text-sm font-semibold text-brand-muted">
-              No titled land is listed for this region yet. Change region or ask Modern-Property to source land for your brief.
+              No titled land is listed for this region yet. Change region or ask Modern Properties to source land for your brief.
             </div>
           )}
         </div>
@@ -60,7 +60,7 @@ export default function LandOnlyPage() {
         <SectionHeading
           eyebrow="Next step"
           title="After you shortlist land, choose the build path"
-          description="Move from a vacant block into a complete build plan with design matching, site costs, approvals, and construction milestones."
+          description="Move from a vacant block into a practical property plan with site costs, approvals, contractor coordination, and clear resale potential."
         />
         <div className="mt-8">
           <IconCardGrid items={mainJourneys.slice(1, 4)} />
@@ -69,7 +69,7 @@ export default function LandOnlyPage() {
 
       <CTASection
         title="Need land checked before you buy?"
-        description="Send the address, lot size, and target home brief. Modern-property will help identify the build questions to ask before signing."
+        description="Send the address, lot size, and target home brief. Modern Properties will help identify the build questions to ask before signing."
         href="/contact?interest=Land"
         label="Check a land option"
       />

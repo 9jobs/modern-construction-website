@@ -1,9 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useProperties } from '../context/PropertyContext';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, BedDouble, Bath, Car, Maximize, ArrowRight, Building2, TrendingUp, Cpu } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { Minus, Plus, RotateCcw, Search } from 'lucide-react';
 
 interface MockMapProps {
   variant?: 'dark' | 'light';
@@ -11,499 +9,260 @@ interface MockMapProps {
 
 type VicRegion = 'MELB WEST' | 'MELB NORTH' | 'MELB EAST' | 'MELB SOUTH' | 'REGIONAL VIC' | 'ALL';
 
-interface RegionStat {
-  title: string;
-  sitesCount: number;
-  avgRoi: string;
-  suburbs: string;
-  desc: string;
-}
-
 export const MockMap: React.FC<MockMapProps> = () => {
-  const { properties, setActivePropertyForModal } = useProperties();
   const [selectedRegion, setSelectedRegion] = useState<VicRegion>('ALL');
-  const [activePropertyId, setActivePropertyId] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter properties to Victoria (VIC) only
-  const vicProperties = properties.filter((p) => p.state === 'VIC');
+  const regionMapQueries: Record<VicRegion, string> = {
+    ALL: 'Victoria, Australia',
+    'MELB WEST': 'Melbourne West, Victoria, Australia',
+    'MELB NORTH': 'Melbourne North, Victoria, Australia',
+    'MELB EAST': 'Melbourne East, Victoria, Australia',
+    'MELB SOUTH': 'Melbourne South, Victoria, Australia',
+    'REGIONAL VIC': 'Regional Victoria, Australia',
+  };
 
-  const getVictorianRegion = (suburb: string): VicRegion => {
-    switch (suburb) {
-      case 'Point Cook':
-      case 'Werribee':
-        return 'MELB WEST';
-      case 'Preston':
-        return 'MELB NORTH';
-      case 'Mulgrave':
-      case 'Glen Waverley':
-        return 'MELB EAST';
-      case 'Brighton':
-        return 'MELB SOUTH';
-      default:
-        return 'REGIONAL VIC';
+  React.useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSelectedRegion('ALL');
+      return;
     }
-  };
 
-  // Compressed Y coordinates by 44% compared to original (multiplied by 0.56) to fit 190px height
-  const getMarkerCoords = (id: string) => {
-    switch (id) {
-      case 'hl-2': // Point Cook (West)
-        return { x: 155, y: 98 };
-      case 'inv-3': // Point Cook (West)
-        return { x: 135, y: 110 };
-      case 'lo-3': // Werribee (West)
-        return { x: 95, y: 104 };
-      case 'ren-3': // Preston (North)
-        return { x: 290, y: 62 };
-      case 'dev-1': // Preston (North)
-        return { x: 265, y: 74 };
-      case 'dh-1': // Mulgrave (East)
-        return { x: 360, y: 76 };
-      case 'ren-1': // Brighton (South)
-        return { x: 290, y: 116 };
-      default:
-        return null;
+    const term = searchQuery.toLowerCase();
+    if (term.includes('west') || term.includes('werribee') || term.includes('point cook')) {
+      setSelectedRegion('MELB WEST');
+      return;
     }
-  };
-
-  const regionPaths = [
-    {
-      code: 'REGIONAL VIC' as VicRegion,
-      name: 'Regional Victoria',
-      path: 'M 10,11 L 490,11 L 490,180 L 395,180 L 365,158 L 135,158 L 105,180 L 10,180 Z',
-      labelX: 95,
-      labelY: 31,
-    },
-    {
-      code: 'MELB WEST' as VicRegion,
-      name: 'Melbourne West',
-      path: 'M 135,68 L 230,68 L 230,124 L 175,124 L 135,95 Z',
-      labelX: 185,
-      labelY: 93,
-    },
-    {
-      code: 'MELB NORTH' as VicRegion,
-      name: 'Melbourne North',
-      path: 'M 230,34 L 310,34 L 310,90 L 230,90 Z',
-      labelX: 270,
-      labelY: 59,
-    },
-    {
-      code: 'MELB EAST' as VicRegion,
-      name: 'Melbourne East',
-      path: 'M 310,34 L 410,45 L 390,113 L 310,113 Z',
-      labelX: 355,
-      labelY: 71,
-    },
-    {
-      code: 'MELB SOUTH' as VicRegion,
-      name: 'Melbourne South',
-      path: 'M 230,90 L 310,90 L 310,140 L 260,140 L 230,118 Z',
-      labelX: 270,
-      labelY: 116,
-    },
-  ];
-
-  // Victoria regional statistics mappings
-  const regionStats: Record<VicRegion, RegionStat> = {
-    ALL: {
-      title: 'Victoria Growth Corridor',
-      sitesCount: 7,
-      avgRoi: '16.2%',
-      suburbs: 'Point Cook, Werribee, Preston, Brighton, Mulgrave',
-      desc: 'Modern-Property targets high-yield developments across Victoria, spanning masterplanned house & land packages, co-living layouts, and premium unit subdivisions.',
-    },
-    'MELB WEST': {
-      title: 'Melbourne West Corridor',
-      sitesCount: 3,
-      avgRoi: '12.1%',
-      suburbs: 'Point Cook, Werribee',
-      desc: 'Rapidly growing western employment hub. Targets ready-to-build family allotments and positive cash-flow SMSF dual-key packages.',
-    },
-    'MELB NORTH': {
-      title: 'Melbourne North Corridor',
-      sitesCount: 2,
-      avgRoi: '25.5%',
-      suburbs: 'Preston',
-      desc: 'High-density urban infill zones. Ideal for architectural townhouses and multi-unit subdivisions with superior exit values.',
-    },
-    'MELB EAST': {
-      title: 'Melbourne East Corridor',
-      sitesCount: 1,
-      avgRoi: '9.8%',
-      suburbs: 'Mulgrave',
-      desc: 'Established family suburbs showcasing premium display suites and masterbuilt luxury home developments.',
-    },
-    'MELB SOUTH': {
-      title: 'Melbourne South / Bayside',
-      sitesCount: 1,
-      avgRoi: '22.4%',
-      suburbs: 'Brighton',
-      desc: 'Elite bayside developments targeting mid-century restorations, character home extensions, and luxury coastal residences.',
-    },
-    'REGIONAL VIC': {
-      title: 'Regional Victoria',
-      sitesCount: 0,
-      avgRoi: '--',
-      suburbs: 'Geelong, Ballarat, Bendigo',
-      desc: 'Securing pipeline land releases in regional employment nodes for future townhouse and housing estate development projects.',
-    },
-  };
-
-  const activeStat = regionStats[selectedRegion];
-
-  const handleRegionClick = (region: VicRegion) => {
-    setSelectedRegion(region);
-    setActivePropertyId(null);
-  };
-
-  const getRegionStyle = (regionCode: VicRegion) => {
-    const isSelected = selectedRegion === regionCode;
-    if (isSelected) {
-      return {
-        fill: 'rgba(28, 77, 140, 0.45)',
-        stroke: '#1C4D8C',
-        strokeWidth: 2,
-      };
+    if (term.includes('north') || term.includes('preston')) {
+      setSelectedRegion('MELB NORTH');
+      return;
     }
-    return {
-      fill: '#06162a',
-      stroke: '#152f52',
-      strokeWidth: 1,
-    };
+    if (term.includes('east') || term.includes('mulgrave') || term.includes('glen waverley')) {
+      setSelectedRegion('MELB EAST');
+      return;
+    }
+    if (term.includes('south') || term.includes('brighton') || term.includes('bayside') || term.includes('melbourne')) {
+      setSelectedRegion('MELB SOUTH');
+      return;
+    }
+    if (term.includes('regional') || term.includes('geelong') || term.includes('ballarat') || term.includes('bendigo') || term.includes('victoria')) {
+      setSelectedRegion('REGIONAL VIC');
+      return;
+    }
+    setSelectedRegion('ALL');
+  }, [searchQuery]);
+
+  const selectedQuery = useMemo(() => {
+    return searchQuery.trim() ? `${searchQuery.trim()}, Victoria, Australia` : regionMapQueries[selectedRegion];
+  }, [regionMapQueries, searchQuery, selectedRegion]);
+
+  const openGoogleMaps = () => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedQuery)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  const activeProperty = vicProperties.find((p) => p.id === activePropertyId);
-  const activePropertyCoords = activeProperty ? getMarkerCoords(activeProperty.id) : null;
+  const adjustZoom = (nextZoom: number) => {
+    const clamped = Math.max(1, Math.min(2.4, Number(nextZoom.toFixed(2))));
+    setZoomLevel(clamped);
+  };
 
   return (
-    <div 
-      onClick={() => setActivePropertyId(null)}
-      className="w-full bg-[#0B2341] text-white border border-white/10 p-5 md:p-6 flex flex-col gap-6 shadow-[0_20px_50px_rgba(4,16,30,0.35)] overflow-hidden mx-auto select-none rounded-none relative"
-    >
-      {/* 1. HUD-style Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div className="text-left">
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
-            <span className="text-[9px] font-extrabold uppercase tracking-[0.24em] text-brand-yellow">
-              /VICTORIA SITE MAP
-            </span>
-          </div>
-          <h3 className="text-xs font-semibold text-white/90 mt-1 uppercase tracking-wider">
-            Select VIC Region to Filter Projects
-          </h3>
-        </div>
-        
-        {/* Tech stats HUD badges */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-[8px] font-extrabold text-white/40 bg-white/5 px-2.5 py-1 border border-white/5">
-            <Cpu size={10} className="text-brand-yellow" />
-            <span>ACTIVE CORE</span>
-          </div>
-          <div className="hidden sm:flex items-center gap-1 text-[8px] font-extrabold text-white/40 bg-white/5 px-2.5 py-1 border border-white/5">
-            <span>PIPELINE: V2.5</span>
-          </div>
-        </div>
-      </div>
+    <div className="relative mx-auto w-full overflow-hidden border border-[#DADDE2] bg-[#CED7DC] shadow-[0_16px_34px_rgba(7,29,56,0.08)]">
+      <div
+        className="relative min-h-[400px] w-full overflow-hidden"
+        onWheel={(e) => {
+          e.preventDefault();
+          adjustZoom(zoomLevel + (e.deltaY < 0 ? 0.1 : -0.1));
+        }}
+      >
+        <button
+          type="button"
+          onClick={openGoogleMaps}
+          className="absolute inset-0 z-[1] cursor-pointer"
+          aria-label="Open Google Maps"
+        />
 
-      {/* 2. Main Grid Layout */}
-      <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-stretch">
-        
-        {/* Left Side: Victoria Map (Height-reduced blueprint container) */}
-        <div className="w-full lg:w-[65%] flex flex-col items-center justify-center relative min-h-[170px] sm:min-h-[190px] bg-slate-950/30 border border-white/5 p-3 overflow-hidden">
-          {/* Subtle blueprint grid background lines */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+        <div className="absolute left-3 top-3 z-20 flex w-[168px] items-center gap-2 border border-[#D8E0E5] bg-white px-3 py-2 shadow-sm md:left-4 md:top-4 md:w-[182px]">
+          <Search size={13} className="shrink-0 text-[#7E909D]" />
+          <input
+            value={searchQuery}
+            onChange={(e) => {
+              e.stopPropagation();
+              setSearchQuery(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              e.stopPropagation();
+              if (e.key === 'Enter') {
+                openGoogleMaps();
+              }
+            }}
+            placeholder="Enter a suburb or postcode"
+            className="w-full border-0 bg-transparent text-[10px] font-medium text-[#738592] outline-none placeholder:text-[#97A8B3]"
+          />
+        </div>
+
+        <div className="absolute right-3 top-3 z-20 flex items-center gap-2 md:right-4 md:top-4">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              adjustZoom(zoomLevel - 0.2);
+            }}
+            className="inline-flex h-9 w-9 items-center justify-center border border-[#D8E0E5] bg-white text-[#071D38] transition-colors hover:bg-[#F4F8FB]"
+            aria-label="Zoom out"
+          >
+            <Minus size={15} />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSearchQuery('');
+              setSelectedRegion('ALL');
+              adjustZoom(1);
+            }}
+            className="inline-flex h-9 items-center justify-center gap-1 border border-[#D8E0E5] bg-white px-3 text-[10px] font-extrabold uppercase tracking-wider text-[#071D38] transition-colors hover:bg-[#F4F8FB]"
+          >
+            <RotateCcw size={13} />
+            Reset
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              adjustZoom(zoomLevel + 0.2);
+            }}
+            className="inline-flex h-9 w-9 items-center justify-center border border-[#D8E0E5] bg-white text-[#071D38] transition-colors hover:bg-[#F4F8FB]"
+            aria-label="Zoom in"
+          >
+            <Plus size={15} />
+          </button>
+        </div>
+
+        <svg viewBox="0 0 1000 420" className="absolute inset-0 h-full w-full select-none">
+          <rect x="0" y="0" width="1000" height="420" fill="#CED7DC" />
           
-          {/* Victoria Map SVG */}
-          <svg viewBox="0 0 500 190" className="h-full w-full select-none max-h-[190px] relative z-10">
-            {/* Architectural Grid ticks */}
-            <g opacity="0.05">
-              <line x1="50" y1="0" x2="50" y2="190" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="150" y1="0" x2="150" y2="190" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="250" y1="0" x2="250" y2="190" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="350" y1="0" x2="350" y2="190" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="450" y1="0" x2="450" y2="190" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="0" y1="40" x2="500" y2="40" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="0" y1="90" x2="500" y2="90" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="0" y1="140" x2="500" y2="140" stroke="white" strokeWidth="1" strokeDasharray="2 2" />
-            </g>
+          <g 
+            style={{ 
+              transform: `scale(${zoomLevel})`, 
+              transformOrigin: 'center', 
+              transition: 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)' 
+            }}
+          >
+            <defs>
+              <filter id="mp-blur-filter" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="15" />
+              </filter>
+              <pattern id="mp-grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth={1.2} />
+              </pattern>
+            </defs>
 
-            {/* Region paths */}
+            {/* Grid pattern fill */}
+            <rect width="2500" height="1500" x="-750" y="-500" fill="url(#mp-grid-pattern)" />
+
+            {/* Clouds overlay background */}
             <g>
-              {regionPaths.map((region) => {
-                const style = getRegionStyle(region.code);
-                return (
-                  <g 
-                    key={region.code} 
-                    onClick={(e) => { 
-                      e.stopPropagation(); 
-                      handleRegionClick(region.code); 
-                    }} 
-                    className="cursor-pointer group"
-                  >
-                    <path
-                      d={region.path}
-                      className="transition-all duration-300 hover:brightness-125 group-hover:opacity-90"
-                      style={{
-                        fill: style.fill,
-                        stroke: style.stroke,
-                        strokeWidth: style.strokeWidth,
-                      }}
-                    />
-                    <text
-                      x={region.labelX}
-                      y={region.labelY}
-                      textAnchor="middle"
-                      className="pointer-events-none text-[7.5px] font-extrabold tracking-wider transition-colors duration-300 fill-slate-500 group-hover:fill-white"
-                      style={{
-                        fill: selectedRegion === region.code ? '#EAF3FC' : undefined,
-                      }}
-                    >
-                      {region.name}
-                    </text>
-                  </g>
-                );
-              })}
+              <ellipse cx="300" cy="150" rx="90" ry="25" fill="#ffffff" opacity={0.55} filter="url(#mp-blur-filter)" />
+              <ellipse cx="700" cy="250" rx="110" ry="30" fill="#ffffff" opacity={0.55} filter="url(#mp-blur-filter)" />
+              <ellipse cx="500" cy="100" rx="70" ry="20" fill="#ffffff" opacity={0.55} filter="url(#mp-blur-filter)" />
             </g>
 
-            {/* Pins/Markers */}
-            <g>
-              {vicProperties.map((prop) => {
-                const region = getVictorianRegion(prop.suburb);
-                if (selectedRegion !== 'ALL' && region !== selectedRegion) return null;
+            {/* Outer Metropolitan Boundary */}
+            <rect x="440" y="50" width="395" height="320" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth={2} strokeDasharray="4,4" />
 
-                const coords = getMarkerCoords(prop.id);
-                if (!coords) return null;
-
-                const isActive = activePropertyId === prop.id;
-
-                return (
-                  <g 
-                    key={prop.id} 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActivePropertyId(isActive ? null : prop.id);
-                    }} 
-                    className="group/marker cursor-pointer"
-                  >
-                    {/* Ping ring */}
-                    <circle
-                      cx={coords.x}
-                      cy={coords.y}
-                      r="6"
-                      className="animate-ping"
-                      style={{
-                        fill: isActive ? 'rgba(28, 77, 140, 0.45)' : 'rgba(28, 77, 140, 0.2)',
-                        animationDuration: '3s',
-                      }}
-                    />
-                    {/* Active Outer Ring */}
-                    <circle
-                      cx={coords.x}
-                      cy={coords.y}
-                      r={isActive ? "5" : "3.5"}
-                      className="transition-all duration-300"
-                      style={{
-                        fill: isActive ? '#FFFFFF' : '#1C4D8C',
-                        stroke: '#1C4D8C',
-                        strokeWidth: isActive ? 2 : 1,
-                      }}
-                    />
-                    {/* Inner dot */}
-                    <circle
-                      cx={coords.x}
-                      cy={coords.y}
-                      r="1.5"
-                      className="fill-[#1C4D8C]"
-                      style={{ display: isActive ? 'block' : 'none' }}
-                    />
-
-                    {/* SVG Micro-Tooltip (Hover only) */}
-                    {!isActive && (
-                      <foreignObject
-                        x={coords.x - 45}
-                        y={coords.y - 30}
-                        width="90"
-                        height="26"
-                        className="pointer-events-none opacity-0 transition-opacity duration-200 group-hover/marker:opacity-100"
-                      >
-                        <div className="bg-[#0B2341]/95 border border-white/10 text-white text-[7px] font-extrabold px-1.5 py-0.5 text-center shadow-md">
-                          <span className="block truncate">{prop.suburb}</span>
-                          <span className="block text-brand-yellow font-sans">${(prop.price / 1000000).toFixed(2)}M</span>
-                        </div>
-                      </foreignObject>
-                    )}
-                  </g>
-                );
-              })}
+            {/* Regional Victoria */}
+            <g onClick={() => setSelectedRegion('REGIONAL VIC')} className="group cursor-pointer">
+              <polygon 
+                className={`transition-all duration-200 ${
+                  selectedRegion === 'REGIONAL VIC'
+                    ? 'fill-[rgba(25,135,84,0.16)] stroke-[#198754] stroke-[3px]'
+                    : 'fill-[rgba(255,255,255,0.55)] stroke-[#cad1d6] stroke-[1.5px] hover:fill-[rgba(25,135,84,0.06)]'
+                }`}
+                points="60,60 420,60 420,360 60,360" 
+              />
+              <text className="font-sans font-bold text-[12px] fill-[#334155]" x="120" y="100" style={{ pointerEvents: 'none', textShadow: '0 1px 2px rgba(255,255,255,0.7)' }}>
+                Regional Victoria
+              </text>
+              <circle cx="240" cy="180" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '240px 180px' }} />
+              <circle cx="180" cy="260" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '180px 260px' }} />
             </g>
-          </svg>
 
-          {/* Floating Detailed Preview Card (Anchored directly over Pin) */}
-          <AnimatePresence>
-            {activeProperty && activePropertyCoords && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: -12, x: '-50%' }}
-                animate={{ opacity: 1, scale: 1, y: 0, x: '-50%' }}
-                exit={{ opacity: 0, scale: 0.85, y: -12, x: '-50%' }}
-                transition={{ type: 'spring', damping: 22, stiffness: 200 }}
-                style={{
-                  left: `${(activePropertyCoords.x / 500) * 100}%`,
-                  top: `${(activePropertyCoords.y / 190) * 100}%`,
-                }}
-                className="absolute -translate-x-1/2 -translate-y-[108%] w-[210px] border p-2 flex flex-col gap-1.5 bg-[#0B2341]/95 border-white/20 text-white shadow-[0_20px_45px_rgba(0,0,0,0.5)] z-20"
-              >
-                {/* Downward pointing arrow */}
-                <div className="absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#0B2341] border-r border-b border-white/20" />
+            {/* Melbourne North */}
+            <g onClick={() => setSelectedRegion('MELB NORTH')} className="group cursor-pointer">
+              <polygon 
+                className={`transition-all duration-200 ${
+                  selectedRegion === 'MELB NORTH'
+                    ? 'fill-[rgba(25,135,84,0.16)] stroke-[#198754] stroke-[3px]'
+                    : 'fill-[rgba(255,255,255,0.55)] stroke-[#cad1d6] stroke-[1.5px] hover:fill-[rgba(25,135,84,0.06)]'
+                }`}
+                points="460,60 630,60 630,190 460,190" 
+              />
+              <text className="font-sans font-bold text-[12px] fill-[#334155]" x="480" y="135" style={{ pointerEvents: 'none', textShadow: '0 1px 2px rgba(255,255,255,0.7)' }}>
+                Melbourne North
+              </text>
+              <circle cx="580" cy="100" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '580px 100px' }} />
+            </g>
 
-                {/* Close trigger */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActivePropertyId(null);
-                  }}
-                  className="absolute top-1.5 right-1.5 text-gray-400 hover:text-white transition-colors"
-                >
-                  <X size={10} />
-                </button>
+            {/* Melbourne East */}
+            <g onClick={() => setSelectedRegion('MELB EAST')} className="group cursor-pointer">
+              <polygon 
+                className={`transition-all duration-200 ${
+                  selectedRegion === 'MELB EAST'
+                    ? 'fill-[rgba(25,135,84,0.16)] stroke-[#198754] stroke-[3px]'
+                    : 'fill-[rgba(255,255,255,0.55)] stroke-[#cad1d6] stroke-[1.5px] hover:fill-[rgba(25,135,84,0.06)]'
+                }`}
+                points="630,60 840,60 810,210 630,210" 
+              />
+              <text className="font-sans font-bold text-[12px] fill-[#334155]" x="650" y="145" style={{ pointerEvents: 'none', textShadow: '0 1px 2px rgba(255,255,255,0.7)' }}>
+                Melbourne East
+              </text>
+              <circle cx="740" cy="120" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '740px 120px' }} />
+            </g>
 
-                {/* Card Content */}
-                <div className="flex gap-2 pt-1">
-                  <div className="w-14 h-11 bg-slate-900 overflow-hidden shrink-0">
-                    <img src={activeProperty.image} alt="" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col min-w-0 pr-4 text-left">
-                    <span className="text-[6px] uppercase font-bold tracking-wider text-brand-yellow truncate">
-                      {activeProperty.suburb}, VIC
-                    </span>
-                    <span className="text-[8px] font-serif font-bold tracking-tight line-clamp-1 mt-0.5">
-                      {activeProperty.title}
-                    </span>
-                    <span className="text-[8.5px] font-extrabold font-sans text-brand-yellow mt-0.5">
-                      ${(activeProperty.price / 1000000).toFixed(2)}M
-                    </span>
-                  </div>
-                </div>
+            {/* Melbourne South */}
+            <g onClick={() => setSelectedRegion('MELB SOUTH')} className="group cursor-pointer">
+              <polygon 
+                className={`transition-all duration-200 ${
+                  selectedRegion === 'MELB SOUTH'
+                    ? 'fill-[rgba(25,135,84,0.16)] stroke-[#198754] stroke-[3px]'
+                    : 'fill-[rgba(255,255,255,0.55)] stroke-[#cad1d6] stroke-[1.5px] hover:fill-[rgba(25,135,84,0.06)]'
+                }`}
+                points="630,210 810,210 780,360 630,360" 
+              />
+              <text className="font-sans font-bold text-[12px] fill-[#334155]" x="650" y="285" style={{ pointerEvents: 'none', textShadow: '0 1px 2px rgba(255,255,255,0.7)' }}>
+                Melbourne South
+              </text>
+              <circle cx="710" cy="250" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '710px 250px' }} />
+            </g>
 
-                {/* Specifications */}
-                <div className="flex items-center justify-between text-[7px] font-bold text-gray-300 border-t border-white/10 pt-1">
-                  {activeProperty.bedrooms > 0 && (
-                    <span className="flex items-center gap-0.5">
-                      <BedDouble size={8} className="text-[#1C4D8C]" />
-                      {activeProperty.bedrooms} <span className="text-gray-400 font-normal">Beds</span>
-                    </span>
-                  )}
-                  {activeProperty.bathrooms > 0 && (
-                    <span className="flex items-center gap-0.5">
-                      <Bath size={8} className="text-[#1C4D8C]" />
-                      {activeProperty.bathrooms} <span className="text-gray-400 font-normal">Baths</span>
-                    </span>
-                  )}
-                  {activeProperty.cars > 0 && (
-                    <span className="flex items-center gap-0.5">
-                      <Car size={8} className="text-[#1C4D8C]" />
-                      {activeProperty.cars} <span className="text-gray-400 font-normal">Cars</span>
-                    </span>
-                  )}
-                  <span className="flex items-center gap-0.5">
-                    <Maximize size={8} className="text-[#1C4D8C]" />
-                    {activeProperty.landSize} <span className="text-gray-400 font-normal">sqm</span>
-                  </span>
-                </div>
+            {/* Melbourne West/Central */}
+            <g onClick={() => setSelectedRegion('MELB WEST')} className="group cursor-pointer">
+              <polygon 
+                className={`transition-all duration-200 ${
+                  selectedRegion === 'MELB WEST'
+                    ? 'fill-[rgba(25,135,84,0.16)] stroke-[#198754] stroke-[3px]'
+                    : 'fill-[rgba(255,255,255,0.55)] stroke-[#cad1d6] stroke-[1.5px] hover:fill-[rgba(25,135,84,0.06)]'
+                }`}
+                points="460,190 630,190 630,360 460,360" 
+              />
+              <text className="font-sans font-bold text-[12px] fill-[#334155]" x="480" y="275" style={{ pointerEvents: 'none', textShadow: '0 1px 2px rgba(255,255,255,0.7)' }}>
+                Melbourne West/Central
+              </text>
+              <circle cx="510" cy="230" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '510px 230px' }} />
+              <circle cx="550" cy="310" r="7" className="fill-[#0a3d62] transition-transform duration-200 hover:scale-125" style={{ transformOrigin: '550px 310px' }} />
+            </g>
 
-                {/* Action CTA */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActivePropertyForModal(activeProperty);
-                    setActivePropertyId(null);
-                  }}
-                  className="w-full bg-[#1C4D8C] hover:bg-[#153B6C] text-white text-[7px] font-extrabold uppercase py-1 text-center transition-colors flex items-center justify-center gap-0.5"
-                >
-                  Quick view build path
-                  <ArrowRight size={8} />
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </g>
+        </svg>
 
-          {/* Reset filter control */}
-          <div className="absolute bottom-1 right-2 z-10 flex items-center gap-2 text-[7.5px] font-bold text-white/50">
-            <span>
-              Selected Filter: <strong className="text-brand-yellow">{selectedRegion === 'ALL' ? 'All Victoria' : selectedRegion}</strong>
-            </span>
-            {selectedRegion !== 'ALL' && (
-              <button
-                onClick={(e) => { e.stopPropagation(); handleRegionClick('ALL'); }}
-                className="underline text-white hover:text-brand-yellow font-extrabold"
-              >
-                Reset Filter
-              </button>
-            )}
-          </div>
+        <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 border border-[#D6DDE2] bg-white px-4 py-2 text-[12px] font-semibold text-[#071D38] shadow-sm">
+          Loading coverage
         </div>
 
-        {/* Right Side: Unique Dashboard stats card (Glassmorphic) */}
-        <div className="w-full lg:w-[35%] flex flex-col justify-between border border-white/10 bg-white/5 p-4 relative z-10 shrink-0 text-left backdrop-blur-md">
-          <div>
-            <div className="flex items-center gap-2 mb-2.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span className="text-[8px] font-extrabold uppercase tracking-[0.24em] text-emerald-400">
-                Region Metrics Active
-              </span>
-            </div>
-
-            <motion.div
-              key={selectedRegion}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <h3 className="font-serif text-base font-bold leading-tight tracking-tight text-white mb-2">
-                {activeStat.title}
-              </h3>
-              <p className="text-[10px] leading-relaxed text-white/70 mb-4 min-h-[44px]">
-                {activeStat.desc}
-              </p>
-
-              {/* Suburb coverage */}
-              <div className="mb-4">
-                <span className="text-[7.5px] uppercase tracking-wider font-bold text-slate-400 block">
-                  Target Suburbs
-                </span>
-                <span className="text-[9.5px] font-bold text-white tracking-tight mt-0.5 block truncate">
-                  {activeStat.suburbs}
-                </span>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Stats grid */}
-          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 mt-auto">
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1 text-[8px] font-bold text-slate-400 uppercase tracking-widest">
-                <Building2 size={10} className="text-brand-yellow" />
-                <span>Active Sites</span>
-              </div>
-              <span className="text-base font-serif font-bold text-white mt-0.5">
-                {activeStat.sitesCount}
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1 text-[8px] font-bold text-slate-400 uppercase tracking-widest">
-                <TrendingUp size={10} className="text-brand-yellow" />
-                <span>Average Yield</span>
-              </div>
-              <span className="text-base font-serif font-bold text-brand-yellow mt-0.5">
-                {activeStat.avgRoi}
-              </span>
-            </div>
-          </div>
-        </div>
+        <div className="absolute bottom-2 left-2 z-20 text-[8px] font-medium text-[#7B8E9D]">mapbox</div>
+        <div className="absolute bottom-2 right-2 z-20 text-[8px] font-medium text-[#7B8E9D]">© Mapbox © OpenStreetMap Improve this map</div>
       </div>
     </div>
   );

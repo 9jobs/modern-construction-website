@@ -41,7 +41,7 @@ export default function HouseDesignsPage() {
         <SectionHeading
           eyebrow="Design filter"
           title="Find a home that fits the block"
-          description="Filter by storey, block width, and starting build budget. After you choose a design, Modern-property can match it to land or a house and land package."
+          description="Filter by storey, block width, and starting build budget. After you choose a design, Modern Properties can match it to land or a house and land package."
         />
 
         <div className="mt-8 grid grid-cols-1 gap-5 border border-brand-border bg-brand-section p-5 lg:grid-cols-3">
@@ -185,7 +185,7 @@ export default function HouseDesignsPage() {
 
       <CTASection
         title="Already have land?"
-        description="Send the lot width, depth, estate guidelines, and budget. Modern-property can help shortlist designs that fit before pricing the build."
+        description="Send the lot width, depth, estate guidelines, and budget. Modern Properties can help shortlist designs that fit before pricing the build."
         href="/contact?interest=Home%20Design"
         label="Match my block"
       />

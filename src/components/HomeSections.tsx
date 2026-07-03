@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -16,7 +16,8 @@ import {
 } from 'lucide-react';
 import { MockMap } from './MockMap';
 import { displayHomesData, houseDesignsData, propertiesData } from '../data/properties';
-import { guideCards } from '../data/siteContent';
+import { guideCards, constructionSteps } from '../data/siteContent';
+import { ConstructionTimeline, SectionHeading } from './MarketingSections';
 import { ScrollAnimate, StaggerContainer, StaggerItem, Magnetic } from './ScrollReveal';
 import { motion, useInView } from 'framer-motion';
 
@@ -97,7 +98,7 @@ const featuredDesign = houseDesignsData[0];
 
 const wantToItems = [
   {
-    title: 'Build my first home',
+    title: 'Explore first homes',
     href: '/first-home-buyers',
     icon: Home,
   },
@@ -126,7 +127,7 @@ const buildTypeCards = [
     description: 'We strategically acquire high-potential land blocks, estates, and properties in premium growth corridors using advanced feasibility metrics.',
   },
   {
-    title: '2. Construction',
+    title: '2. Development Coordination',
     href: '/construction-services',
     image: '/img/construction.jpg',
     description: 'Licensed building crews execute premium structural works, subdivisions, and luxury dual-occupancy developments with 6-stage quality checks.',
@@ -138,7 +139,7 @@ const buildTypeCards = [
     description: 'We complete structural lock-up shell stages, framing, and roofing, preparing the asset for premium interior fit-out and modern finishes.',
   },
   {
-    title: '4. Construction Video Showcase',
+    title: '4. Project Showcase',
     href: '/development-projects',
     video: '/img/video.mp4',
     description: 'Watch a cinematic walkthrough of our active structural sites, displaying engineering execution and premium building techniques.',
@@ -154,46 +155,46 @@ const buildTypeCards = [
 const trustPoints = [
   {
     title: 'Master of design',
-    description: 'Designs are matched to frontage, lifestyle, orientation, and budget before the build contract is finalised.',
+    description: 'Designs are matched to frontage, lifestyle, orientation, and budget before the contract is finalised.',
     icon: Award,
   },
   {
     title: 'Lifetime structural confidence',
-    description: 'Licensed construction teams coordinate engineering, supervision, quality checks, and handover documents.',
+    description: 'Independent contractors complete approved work while Modern Properties tracks quality checkpoints, documentation, and buyer readiness.',
     icon: ShieldCheck,
   },
   {
     title: '6 stage quality assurance',
-    description: 'Modern-property tracks slab, frame, lock-up, fixing, fit-off, and handover so every stage has a clear checkpoint.',
+    description: 'Modern Properties tracks slab, frame, lock-up, fixing, fit-off, and handover so every stage has a clear checkpoint.',
     icon: ClipboardCheck,
   },
   {
-    title: 'A local home builder',
-    description: 'Property, design, and construction advice stays grounded in Australian suburbs, land releases, and estate rules.',
+    title: 'Reliable property solutions',
+    description: 'Property advice stays grounded in Australian suburbs, land releases, renovation pathways, and local resale conditions.',
     icon: MapPinned,
   },
 ];
 
 const faqs = [
   {
-    question: 'How does Modern-property identify high-potential property acquisitions?',
+    question: 'How does Modern Properties identify high-potential property acquisitions?',
     answer:
-      'Modern-property uses a data-driven feasibility matrix to evaluate soil quality, slope, utility connections, zoning overlays, and regional growth metrics before property acquisition.',
+      'Modern Properties uses a data-driven feasibility matrix to evaluate soil quality, slope, utility connections, zoning overlays, and regional growth metrics before property acquisition.',
   },
   {
-    question: 'What is Modern-property\'s project execution and construction framework?',
+    question: 'What is Modern Properties\'s project execution framework?',
     answer:
-      'We manage the entire pipeline from zoning approvals and civil engineering to lock-up and fit-off stages, ensuring that every asset meets premium build and quality guidelines.',
+      'We manage the entire pipeline from zoning approvals and civil engineering to lock-up and fit-off stages, ensuring that every asset meets premium quality guidelines.',
   },
   {
-    question: 'Does Modern-property sell completed properties direct to buyers?',
+    question: 'Does Modern Properties sell completed properties direct to buyers?',
     answer:
-      'Yes. Modern-property develops residential townhouses, co-living units, and commercial assets, selling fully completed, turnkey holdings directly to investors and homebuyers.',
+      'Yes. Modern Properties develops residential townhouses, co-living units, and commercial assets, selling fully completed, turnkey holdings directly to investors and homebuyers.',
   },
   {
-    question: 'Where are Modern-property showcase developments located?',
+    question: 'Where are Modern Properties showcase developments located?',
     answer:
-      'Modern-property developments are located in premium growth corridors across major Australian states. Prospective buyers can book showcase inspections and view investor folders online.',
+      'Modern Properties developments are located in premium growth corridors across major Australian states. Prospective buyers can book showcase inspections and view investor folders online.',
   },
 ];
 
@@ -249,7 +250,7 @@ function HeroVideo() {
           loop
           playsInline
           preload="metadata"
-          aria-label="Modern-property property development hero video"
+          aria-label="Modern Properties property development hero video"
         />
         {/* Dark overlay backdrop */}
         <motion.div 
@@ -277,7 +278,7 @@ function HeroVideo() {
                     letterSpacing: 'normal' 
                   }}
                 >
-                  Modern Property
+                  Modern Properties
                 </span>
               </StaggerItem>
               <StaggerItem variant="fadeUp">
@@ -287,7 +288,7 @@ function HeroVideo() {
               </StaggerItem>
               <StaggerItem variant="fadeUp">
                 <p className="mt-5 max-w-xl text-xs font-semibold leading-relaxed text-white/90 sm:text-sm">
-                  Modern-property acquires high-potential properties, develops them through quality construction and planning, and executes sales of premium holdings.
+                  Modern Properties acquires high-potential properties, develops them through quality construction and planning, and executes sales of premium holdings.
                 </p>
               </StaggerItem>
               <StaggerItem variant="fadeUp">
@@ -326,7 +327,7 @@ function PromoCards() {
             <h2 className="mt-2 font-serif text-2xl font-bold leading-tight text-[#071d38]">Strategic Property Lifecycle</h2>
           </div>
           <p className="mt-3 text-xs font-semibold text-brand-navy/60 md:mt-0 md:max-w-xs md:text-right">
-            Developer-direct capabilities driving consistent returns through site sourcing, construction, and lock-up execution.
+            Developer-direct capabilities driving consistent returns through site sourcing, coordination, and lock-up execution.
           </p>
         </StaggerItem>
 
@@ -345,7 +346,7 @@ function PromoCards() {
                   <div className="mt-2 text-[10px] font-extrabold uppercase tracking-[0.2em]">Acquisition & Sourcing</div>
                 </div>
               </div>
-              <div className="p-4 text-xs font-bold text-[#071d38] group-hover:text-[#1C4D8C] transition-colors">Modern-Property strategic land and site acquisitions</div>
+              <div className="p-4 text-xs font-bold text-[#071d38] group-hover:text-[#1C4D8C] transition-colors">Modern Properties strategic land and site acquisitions</div>
             </Link>
           </StaggerItem>
 
@@ -353,7 +354,7 @@ function PromoCards() {
             <Link href="/construction-services" className="group relative block min-h-[260px] h-full overflow-hidden bg-white shadow-xs">
               <img 
                 src="/img/construction2.jpg" 
-                alt="Construction Stage" 
+                alt="Development Stage" 
                 className="h-full min-h-[260px] w-full object-cover scale-100 group-hover:scale-103 transition-transform duration-700 ease-out" 
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-white via-white/80 to-transparent" />
@@ -504,12 +505,12 @@ function WhyChooseUsSection() {
             
             {/* Background Image (Tall vertical alignment) */}
             <div className="absolute top-0 left-[6%] w-[78%] h-[80%] overflow-hidden bg-slate-100 shadow-lg">
-              <img src="/img/home6.jpg" alt="Modern-Property premium development exterior" className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.04]" />
+              <img src="/img/home6.jpg" alt="Modern Properties premium development exterior" className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.04]" />
             </div>
 
             {/* Foreground Image (Tall vertical alignment with border) */}
             <div className="absolute bottom-0 right-[6%] w-[70%] h-[75%] overflow-hidden bg-slate-100 shadow-2xl">
-              <img src="/img/home7.jpg" alt="Modern-Property luxury interior design showcase" className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.04]" />
+              <img src="/img/home7.jpg" alt="Modern Properties luxury interior design showcase" className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.04]" />
             </div>
           </div>
         </ScrollAnimate>
@@ -591,9 +592,9 @@ function WhyChooseUsSection() {
           {/* Footer features summary */}
           <div className="mt-6 border-t border-gray-100 pt-5 text-[9px] font-extrabold text-[#41556B]/75 uppercase tracking-wider flex flex-wrap gap-x-4 gap-y-1">
             <span>Trusted Communication</span>
-            <span className="text-[#1C4D8C]">•</span>
+            <span className="text-[#1C4D8C]">â€¢</span>
             <span>Quality Workmanship</span>
-            <span className="text-[#1C4D8C]">•</span>
+            <span className="text-[#1C4D8C]">â€¢</span>
             <span>End-to-End Support</span>
           </div>
         </ScrollAnimate>
@@ -633,12 +634,12 @@ function QualitySection() {
           </StaggerContainer>
           <ScrollAnimate variant="fadeLeft" className="lg:col-span-5 lg:col-start-8">
             <div className="aspect-[16/10] overflow-hidden bg-slate-100 shadow-md">
-              <img src="/img/home3.jpg" alt="Modern-property premium development interior" className="h-full w-full object-cover" />
+              <img src="/img/home3.jpg" alt="Modern Properties premium development interior" className="h-full w-full object-cover" />
             </div>
           </ScrollAnimate>
         </div>
         <ScrollAnimate variant="fadeUp" delay={0.2} className="mt-8 text-center">
-          <TextButton href="/about">Learn more about developing with Modern-Property</TextButton>
+          <TextButton href="/about">Learn more about developing with Modern Properties</TextButton>
         </ScrollAnimate>
       </section>
 
@@ -659,7 +660,7 @@ function ServiceAreaMap() {
     <ScrollAnimate variant="fadeUp" className="mx-auto max-w-[1512px] px-4 pb-14 text-center sm:px-6">
       <h2 className="font-serif text-2xl font-bold text-[#071d38]">Find out if we develop in your area.</h2>
       <p className="mx-auto mt-3 max-w-2xl text-xs font-medium leading-6 text-[#41556B]">
-        Modern-property coordinates development projects across Victoria&apos;s premium growth corridors with acquisitions, planning, and construction pathways.
+        Modern Properties coordinates development projects across Victoria&apos;s premium growth corridors with acquisitions, planning, and construction pathways.
       </p>
       <div className="mt-7 shadow-md overflow-hidden">
         <MockMap variant="light" />
@@ -685,10 +686,10 @@ function DarkJourneyCta() {
         />
         <div className="relative mx-auto max-w-2xl">
           <h2 className="font-serif text-2xl font-bold leading-tight md:text-3xl text-[#0B2341]">
-            Secure your next premium real estate asset with Modern-Property today
+            Secure your next premium real estate asset with Modern Properties today
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-xs font-semibold leading-6 text-[#1C4D8C]/90">
-            From strategic site acquisition to premium civil execution, Modern-property delivers developer-direct investment value.
+            From strategic site acquisition to premium civil execution, Modern Properties delivers developer-direct investment value.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Magnetic>
@@ -781,7 +782,7 @@ function FooterPrompt() {
   return (
     <ScrollAnimate variant="fadeIn" className="border-y border-[#DADDE2] bg-white px-4 py-5 text-center">
       <div className="mx-auto flex max-w-[1512px] flex-col items-center justify-center gap-3 sm:flex-row">
-        <span className="font-serif text-base font-bold text-[#071d38]">Secure your next premium real estate asset with Modern-Property today</span>
+        <span className="font-serif text-base font-bold text-[#071d38]">Secure your next premium real estate asset with Modern Properties today</span>
         <Magnetic>
           <TextButton href="/contact?interest=Enquiry">Enquire</TextButton>
         </Magnetic>
@@ -841,7 +842,7 @@ function OurServicesSection() {
     },
     {
       id: 2,
-      title: 'Construction',
+      title: 'Development',
       image: '/img/construction.jpg',
       footerLeft: 'Trustee / Pure Mist',
       footerRight: '340',
@@ -1088,7 +1089,7 @@ function FamilyBuiltSection() {
         'Fixed-scope inclusions with clear upgrade options',
         '120-point quality checkpoints at every key stage',
         'On-time delivery focus with regular progress updates',
-        'Transparent fixed-price construction contracts',
+        'Transparent fixed-price renovation contracts',
         'Bespoke designer kitchens with premium stone benchtops'
       ],
       link: '/house-designs',
@@ -1174,7 +1175,7 @@ function FamilyBuiltSection() {
         
         {/* Subtitle */}
         <p className="mx-auto mt-4 max-w-3xl text-xs font-semibold leading-relaxed text-[#41556B] italic">
-          A home is more than a build - it is where life happens. Modern-Property combines quality workmanship, transparent communication and a steady, guided process so your family feels supported from day one to handover.
+          A home is more than a design - it is where life happens. Modern Properties combines quality workmanship, transparent communication and a steady, guided process so your family feels supported from day one to handover.
         </p>
       </ScrollAnimate>
 
@@ -1274,9 +1275,9 @@ function FamilyBuiltSection() {
               
               <div className="text-[9px] font-extrabold text-[#667085]/75 uppercase tracking-wider flex flex-wrap gap-x-3 gap-y-1">
                 <span>Premium planning</span>
-                <span>•</span>
+                <span>â€¢</span>
                 <span>Trusted delivery</span>
-                <span>•</span>
+                <span>â€¢</span>
                 <span>End-to-end support</span>
               </div>
             </div>
@@ -1294,7 +1295,17 @@ export function HomeSections() {
       <PromoCards />
       <WantToTiles />
       <BuildTypeCards />
-      <WhyChooseUsSection />
+            <WhyChooseUsSection />
+      <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Property Journey"
+          title="Our end-to-end buying & selling process"
+          description="Modern Properties guides every step of the real estate lifecycle-from site identification and feasibility through renovation coordination to the final sale."
+        />
+        <div className="mt-8">
+          <ConstructionTimeline steps={constructionSteps} />
+        </div>
+      </section>
       <QualitySection />
       <ServiceAreaMap />
       <FamilyBuiltSection />

@@ -19,7 +19,7 @@ const NAV_LINKS = [
   { name: 'Display Homes', href: '/display-homes' },
   { name: 'House & Land', href: '/house-and-land' },
   { name: 'Style Inspiration', href: '/style-inspiration' },
-  { name: 'Build with Modern-Property', href: '/build-with-aura' },
+  { name: 'Property Journey', href: '/build-with-aura' },
   { name: 'More', href: '/current-offers' },
 ];
 
@@ -90,7 +90,7 @@ export const Header: React.FC = () => {
               className="inline-flex items-center gap-1.5 text-[#071d38] hover:text-[#1C4D8C]"
             >
               <MapPin size={12} className="text-[#1C4D8C]" />
-              <span>Build in {currentRegionLabel}</span>
+              <span>Browse in {currentRegionLabel}</span>
               <ChevronDown size={12} className={`transition-transform ${isRegionDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             <AnimatePresence>
@@ -136,10 +136,10 @@ export const Header: React.FC = () => {
         <div className="mx-auto flex max-w-[1512px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <Link href="/" className="shrink-0">
             <span className="block font-serif text-2xl font-extrabold leading-none tracking-wide text-[#071d38] md:text-[1.7rem]">
-              Modern-Property
+              Modern Properties
             </span>
             <span className="mt-0.5 block text-[7px] font-extrabold uppercase tracking-[0.32em] text-[#667085]">
-              Acquisitions & Developments
+              Buying & Selling
             </span>
           </Link>
 
@@ -147,7 +147,7 @@ export const Header: React.FC = () => {
             <input
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Search acquired sites, developments, or portfolios"
+              placeholder="Search properties, developments, or ready-to-buy options"
               className="h-9 w-full border border-[#DADDE2] bg-[#F8FBFD] px-3 pr-9 text-[11px] font-semibold text-[#071d38] outline-none transition-colors placeholder:text-[#667085] focus:border-[#1C4D8C] focus:bg-white"
             />
             <button
@@ -253,7 +253,7 @@ export const Header: React.FC = () => {
                         >
                           <div className="border-b border-gray-100 pb-2 mb-1">
                             <span className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#667085]">
-                              DEVELOPMENT LIFECYCLE
+                              PROPERTY JOURNEY
                             </span>
                           </div>
                           
@@ -263,10 +263,10 @@ export const Header: React.FC = () => {
                             onClick={() => setIsHomeDesignsHovered(false)}
                           >
                             <span className="text-[11px] font-extrabold text-[#0B2341] group-hover:text-[#1C4D8C] transition-colors uppercase tracking-wider">
-                              1. Property Purchase
+                              1. Property Buying
                             </span>
                             <span className="text-[10px] text-[#667085] font-medium mt-1 leading-normal">
-                              Shortlist old homes, zoned land, and high-yield split allotments.
+                              Shortlist older homes, land, and site opportunities with strong potential.
                             </span>
                           </Link>
 
@@ -276,10 +276,10 @@ export const Header: React.FC = () => {
                             onClick={() => setIsHomeDesignsHovered(false)}
                           >
                             <span className="text-[11px] font-extrabold text-[#0B2341] group-hover:text-[#1C4D8C] transition-colors uppercase tracking-wider">
-                              2. Civil Construction
+                              2. Development Coordination
                             </span>
                             <span className="text-[10px] text-[#667085] font-medium mt-1 leading-normal">
-                              Engineered civil foundations, structural frames, and quality checkpoints.
+                              Trusted third-party renovation and development coordination with clear milestones.
                             </span>
                           </Link>
 
@@ -289,10 +289,10 @@ export const Header: React.FC = () => {
                             onClick={() => setIsHomeDesignsHovered(false)}
                           >
                             <span className="text-[11px] font-extrabold text-[#0B2341] group-hover:text-[#1C4D8C] transition-colors uppercase tracking-wider">
-                              3. Structural Shells
+                              3. Ready-to-Buy Properties
                             </span>
                             <span className="text-[10px] text-[#667085] font-medium mt-1 leading-normal">
-                              View completed lock-up stages, showcase homes, and structural shells.
+                              View completed properties prepared for buyers seeking finished options.
                             </span>
                           </Link>
 
@@ -302,7 +302,7 @@ export const Header: React.FC = () => {
                               className="text-[10px] font-extrabold uppercase tracking-widest text-[#1C4D8C] hover:text-[#0B2341] transition-colors"
                               onClick={() => setIsHomeDesignsHovered(false)}
                             >
-                              Explore All Home Designs →
+                              Explore Property Options →
                             </Link>
                           </div>
                         </motion.div>
@@ -329,7 +329,7 @@ export const Header: React.FC = () => {
                 <input
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
-                  placeholder="Search Modern-Property"
+                  placeholder="Search Modern Properties"
                   className="h-10 w-full border border-[#DADDE2] bg-[#F8FBFD] px-3 pr-10 text-xs font-semibold outline-none"
                 />
                 <button type="submit" aria-label="Search" className="absolute right-2 top-1/2 -translate-y-1/2 text-[#071d38]">
@@ -356,21 +356,21 @@ export const Header: React.FC = () => {
                             onClick={() => setIsOpen(false)}
                             className="py-1 text-[#0B2341] hover:text-[#1C4D8C] font-extrabold"
                           >
-                            1. Property Purchase
+                            1. Property Buying
                           </Link>
                           <Link 
                             href="/civil-construction"
                             onClick={() => setIsOpen(false)}
                             className="py-1 text-[#0B2341] hover:text-[#1C4D8C] font-extrabold"
                           >
-                            2. Civil Construction
+                            2. Development Coordination
                           </Link>
                           <Link 
                             href="/structural-shells"
                             onClick={() => setIsOpen(false)}
                             className="py-1 text-[#0B2341] hover:text-[#1C4D8C] font-extrabold"
                           >
-                            3. Completed Shells
+                            3. Ready-to-Buy Properties
                           </Link>
                         </div>
                       )}

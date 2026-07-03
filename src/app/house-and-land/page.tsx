@@ -32,7 +32,7 @@ export default function HouseAndLandPage() {
         <SectionHeading
           eyebrow="Turnkey purchase path"
           title="Buy land and home design together"
-          description="Each Modern-property house and land package shows the block, home design, estate, land size, guide price, build stage, and core inclusions so buyers can compare the total journey."
+          description="Each Modern Properties house and land package shows the block, home design, estate, land size, guide price, build stage, and core inclusions so buyers can compare the total journey."
         />
         <div className="mt-8">
           <IconCardGrid items={trustPoints} />
@@ -56,7 +56,7 @@ export default function HouseAndLandPage() {
             </div>
           ) : (
             <div className="mt-8 border border-brand-border bg-white p-10 text-center text-sm font-semibold text-brand-muted">
-              No package is currently listed for this region. Change the region selector or enquire so Modern-property can prepare a matching brief.
+              No package is currently listed for this region. Change the region selector or enquire so Modern Properties can prepare a matching brief.
             </div>
           )}
         </div>
@@ -66,7 +66,7 @@ export default function HouseAndLandPage() {
         <SectionHeading
           eyebrow="How it works"
           title="From package shortlist to handover"
-          description="Modern-property checks the land, confirms the design fit, prepares the fixed build scope, and manages approvals before construction begins."
+          description="Modern Properties checks the land, confirms the development fit, prepares the scope, and manages approvals before contractor work begins."
         />
         <div className="mt-8">
           <ConstructionTimeline steps={constructionSteps.slice(0, 6)} />
@@ -75,7 +75,7 @@ export default function HouseAndLandPage() {
 
       <CTASection
         title="Have a package in mind?"
-        description="Send Modern-Property your target state, budget, preferred bedrooms, and timing. We will confirm what packages are build-ready locally."
+        description="Send Modern Properties your target state, budget, preferred bedrooms, and timing. We will confirm what packages are build-ready locally."
         href="/contact?interest=House%20and%20Land"
         label="Start package enquiry"
       />

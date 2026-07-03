@@ -63,17 +63,17 @@ export const LocationSelector: React.FC = () => {
                 <MapPin size={24} className="text-white" />
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-white font-medium tracking-tight">
-                Where would you like to build?
+                Where would you like to buy or sell?
               </h2>
               <p className="text-[10px] text-white/80 tracking-[0.24em] uppercase mt-2 font-bold font-sans">
-                MODERN-PROPERTY ACQUISITIONS & DEVELOPMENTS
+                MODERN PROPERTIES BUYING & SELLING
               </p>
             </div>
 
             {/* Content Selection Grid - borderless list */}
             <div className="p-6 md:p-8 flex flex-col gap-6 bg-white text-center sm:text-left rounded-none">
               <p className="text-center text-xs sm:text-sm text-[#41556B] max-w-md mx-auto leading-relaxed">
-                Select your Victoria location of interest to access local acquisitions, subdivided allotments, development portfolios, and completed showcase properties.
+                Select your Victoria location of interest to explore ready-to-buy properties, investment opportunities, and local property buying or selling support.
               </p>
 
               <div className="flex flex-col gap-4 mt-2">
@@ -96,7 +96,7 @@ export const LocationSelector: React.FC = () => {
                       onClick={handleSelectLocation}
                       className="bg-[#1C4D8C] hover:bg-[#0B2341] text-white text-[11px] font-extrabold uppercase tracking-wider py-2.5 px-6 rounded-none transition-all duration-300 shadow-sm hover:shadow-md shrink-0 w-fit active:translate-y-[1px]"
                     >
-                      Build here
+                      View Properties
                     </button>
                   </div>
                 ))}

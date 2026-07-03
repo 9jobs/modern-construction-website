@@ -50,8 +50,8 @@ export default function StructuralShellsPage() {
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Built with assurance"
-            title="What We Hand Over After Civil Lock-up"
-            description="Our civil handover packs include detailed structural certificates, materials audits, and full warranty documentation."
+            title="What We Hand Over At Completion"
+            description="Our completion packs include key certificates, materials records, warranty documentation, and buyer handover guidance."
           />
           <div className="mt-8">
             <IconCardGrid items={trustPoints} />
@@ -61,7 +61,7 @@ export default function StructuralShellsPage() {
 
       <CTASection
         title="Interested in a completed structural showcase?"
-        description="Tell us your target region and moving timeline. Modern-Property will arrange priority access folders and walkthrough inspection windows."
+        description="Tell us your target region and moving timeline. Modern Properties will arrange priority access folders and walkthrough inspection windows."
         href="/contact?interest=Completed%20Home"
         label="Request inspection brief"
       />

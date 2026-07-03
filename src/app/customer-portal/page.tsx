@@ -33,7 +33,7 @@ export default function CustomerPortalPage() {
         <SectionHeading
           eyebrow="Portal preview"
           title="A local build tracking dashboard"
-          description="This page shows the type of customer view Modern-property buyers use after contract: milestones, photos, documents, supervisor notes, and next actions."
+          description="This page shows the type of customer view Modern Properties buyers use after contract: milestones, photos, documents, supervisor notes, and next actions."
         />
 
         <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12">
@@ -131,7 +131,7 @@ export default function CustomerPortalPage() {
 
       <CTASection
         title="Need help with your build stage?"
-        description="Contact Modern-Property to confirm documents, progress updates, or handover requirements."
+        description="Contact Modern Properties to confirm documents, progress updates, or handover requirements."
         href="/contact?interest=Customer%20Portal"
         label="Contact support"
       />

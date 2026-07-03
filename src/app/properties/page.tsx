@@ -52,7 +52,7 @@ function PropertiesContent() {
   const description = savedOnly
     ? 'Review the packages, land lots, homes, and sites you saved locally in this browser.'
     : compareOnly
-      ? 'Compare selected properties before you ask Modern-Property for land checks, design matching, or construction pricing.'
+      ? 'Compare selected properties before you ask Modern Properties for land checks, development options, or resale guidance.'
       : pageHeroContent.properties.description;
 
   return (
@@ -69,7 +69,7 @@ function PropertiesContent() {
 
       <section className="mx-auto max-w-[1512px] px-4 py-12 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Search Modern-Property stock"
+          eyebrow="Search Modern Properties stock"
           title={savedOnly ? 'Your saved shortlist' : compareOnly ? 'Your compare shortlist' : 'Search properties by buyer path'}
           description={
             savedOnly || compareOnly
@@ -96,7 +96,7 @@ export default function PropertiesPage() {
       fallback={
         <div className="flex min-h-screen items-center justify-center bg-white p-8">
           <span className="animate-pulse-blue text-xs font-semibold uppercase tracking-widest text-brand-muted">
-            Loading Modern-Property listings...
+            Loading Modern Properties listings...
           </span>
         </div>
       }

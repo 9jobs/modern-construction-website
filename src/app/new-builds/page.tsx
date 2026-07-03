@@ -26,7 +26,7 @@ export default function NewBuildsPage() {
         <SectionHeading
           eyebrow="Move-in ready"
           title={`Completed and near-complete homes in ${selectedState === 'ALL' ? 'Australia' : selectedState}`}
-          description="These homes are for buyers who want the benefits of new construction without starting from a vacant block."
+          description="These homes are for buyers who want a completed, ready-to-buy property without managing the development process themselves."
         />
         {homes.length > 0 ? (
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -36,7 +36,7 @@ export default function NewBuildsPage() {
           </div>
         ) : (
           <div className="mt-8 border border-brand-border bg-brand-section p-10 text-center text-sm font-semibold text-brand-muted">
-            No completed builds are listed in this region right now.
+            No completed properties are listed in this region right now.
           </div>
         )}
       </section>
@@ -44,9 +44,9 @@ export default function NewBuildsPage() {
       <section className="border-y border-brand-border bg-brand-section/70 py-14">
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Built with assurance"
-            title="What buyers still receive after construction"
-            description="Even when the build is complete, Modern-property supports inspection notes, certificates, warranty documents, and handover guidance."
+            eyebrow="Ready with assurance"
+            title="What buyers still receive at completion"
+            description="Even when the property is complete, Modern Properties supports inspection notes, certificates, warranty documents, and handover guidance."
           />
           <div className="mt-8">
             <IconCardGrid items={trustPoints} />
@@ -55,7 +55,7 @@ export default function NewBuildsPage() {
       </section>
 
       <CTASection
-        title="Want a finished Modern-Property home?"
+        title="Want a finished Modern Properties home?"
         description="Tell us your region and preferred move-in date so the local team can confirm available homes and inspection windows."
         href="/contact?interest=Completed%20Home"
         label="Request inspection"

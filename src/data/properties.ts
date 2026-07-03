@@ -300,7 +300,7 @@ const rawPropertiesData: Property[] = [
     buildStatus: 'Subdivided',
     roi: 18.0,
     image: 'https://images.unsplash.com/photo-1524813686514-a57563d77d61?auto=format&fit=crop&w=800&q=80',
-    description: 'Elevated building site in prestigious Kellyville. Offering stunning regional views, ideal for a custom architectural builder.',
+    description: 'Elevated site in prestigious Kellyville offering stunning regional views and strong scope for a premium custom property outcome.',
     features: ['Elevated Outlook', 'Class M Soil test', 'Fully Serviced Pit', '15m Frontage'],
     estateName: 'Kellyville Heights'
   },
@@ -527,7 +527,7 @@ const rawPropertiesData: Property[] = [
     image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80',
     description: 'Weatherboard cottage on a flat 850sqm site. Approved plans for 3 x luxury double-storey townhouses. Estimated gross realization value of $2.85M.',
     features: ['Zoned GRZ2', 'No Easements', 'Approved Plans & Permits', '18.5m Frontage'],
-    developmentPotential: 'Build 3 townhouses, yields high equity upon construction exit.'
+    developmentPotential: 'Deliver 3 townhouses with strong equity potential at resale.'
   },
   {
     id: 'dev-2',
@@ -723,7 +723,7 @@ const rawPropertiesData: Property[] = [
     rentalYield: 5.2,
     roi: 12.5,
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    description: 'Duplex investment home yielding double returns in premium Western Australia suburb. Quality builder fixtures.',
+    description: 'Duplex investment home yielding double returns in a premium Western Australia suburb with polished, investor-friendly finishes.',
     features: ['Double rental return', 'High capital growth area', 'Premium build warranties', 'Near local medical clinics']
   },
   {
@@ -764,7 +764,7 @@ const rawPropertiesData: Property[] = [
     buildStatus: 'Completed',
     roi: 9.8,
     image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-    description: 'Modern-property flagship display home showcasing premium finishes and structural builder capability. Guaranteed 7% leaseback return for 24 months.',
+    description: 'Modern Properties flagship display home showcasing premium finishes, presentation quality, and a guaranteed 7% leaseback return for 24 months.',
     features: ['Premium Display Upgrades', '7% Leaseback Guarantee', 'Fully Furnished options', 'State of the art home automation'],
     estateName: 'Mulgrave Estate'
   },
@@ -1248,7 +1248,7 @@ const rawRenovatedHomesData: RenovatedHome[] = [
     beforeImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
     afterImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
     description: 'Distressed waterfront block completely overhauled into a modern Mediterranean-style villa. Rendered walls, arched claddings.',
-    features: ['Rendered Brick facade', 'Lap pool construction', 'Custom gas kitchen', 'Aluminium double-glazed frames']
+    features: ['Rendered brick facade', 'Lap pool upgrade', 'Custom gas kitchen', 'Aluminium double-glazed frames']
   },
   {
     id: 'ren-5',
@@ -1467,7 +1467,7 @@ const rawInvestmentPropertiesData: InvestmentProperty[] = [
     rentalYield: 5.2,
     estimatedRoi: 12.5,
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    description: 'Duplex investment home yielding double returns in premium Western Australia suburb. Quality builder fixtures.',
+    description: 'Duplex investment home yielding double returns in a premium Western Australia suburb with polished, investor-friendly finishes.',
     features: ['Double rental return', 'High capital growth area', 'Premium build warranties', 'Near local medical clinics']
   },
   {

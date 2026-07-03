@@ -28,7 +28,7 @@ export default function OwnLandAlreadyPage() {
         },
         {
           title: 'Build pathway',
-          description: 'Map selections, approvals, site costs, construction stages, inspections, and handover before the project begins.',
+          description: 'Map selections, approvals, site costs, contractor stages, inspections, and handover before the project begins.',
           image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=85',
           href: '/building-process',
         },
@@ -43,7 +43,7 @@ export default function OwnLandAlreadyPage() {
       storyTitle="The right design depends on the land details"
       storyBody={[
         'A home design can look perfect online but fail on the block because of frontage, setbacks, slope, estate controls, orientation, access, or services.',
-        'Modern-Property uses a builder-style review process so buyers can move from land ownership to a realistic design and construction path.',
+        'Modern Properties uses a practical review process so buyers can move from land ownership to a realistic development and resale path.',
       ]}
       storyImage="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85"
       proofTitle="Block-fit checks"

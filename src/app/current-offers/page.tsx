@@ -6,7 +6,7 @@ export default function CurrentOffersPage() {
     <MetriconThemePage
       eyebrow="Current offers"
       title="Featured property, package, and development opportunities."
-      description="View current Modern-Property releases, buyer pathways, display appointments, and project opportunities in one clean place."
+      description="View current Modern Properties releases, buyer pathways, display appointments, and project opportunities in one clean place."
       heroImage="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=85"
       primaryHref="/properties"
       primaryLabel="View properties"
@@ -43,14 +43,14 @@ export default function CurrentOffersPage() {
       storyTitle="Offers that still need proper due diligence"
       storyBody={[
         'A clean offer page should make the opportunity easy to scan, but every property still needs local checks before a buyer commits.',
-        'Modern-Property keeps offer conversations linked to land availability, build timing, inclusions, approvals, and the final contract pathway.',
+        'Modern Properties keeps offer conversations linked to land availability, build timing, inclusions, approvals, and the final contract pathway.',
       ]}
       storyImage="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=85"
       proofTitle="What each offer should clarify"
       proofPoints={[
         { title: 'Availability', description: 'Confirm whether the land, package, display, or developed property is still active.', icon: Search },
         { title: 'Inclusions', description: 'Separate standard inclusions, upgrades, site costs, and allowance items before comparing.', icon: BadgePercent },
-        { title: 'Build status', description: 'Understand whether the asset is titled, ready to build, under construction, or complete.', icon: Building2 },
+        { title: 'Property status', description: 'Understand whether the asset is titled, under improvement, ready to buy, or complete.', icon: Building2 },
         { title: 'Next action', description: 'Book inspection, request documents, submit enquiry, or start feasibility based on the offer type.', icon: Sparkles },
       ]}
       ctaTitle="Want the latest release list?"

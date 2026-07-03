@@ -122,7 +122,7 @@ export default function DisplayHomesPage() {
 
       <CTASection
         title="Want to inspect finishes before choosing?"
-        description="Book a local display appointment or virtual tour, then Modern-property can match what you liked to a land or package option."
+        description="Book a local display appointment or virtual tour, then Modern Properties can match what you liked to a land or package option."
         href="/contact?interest=Display"
         label="Book display visit"
       />

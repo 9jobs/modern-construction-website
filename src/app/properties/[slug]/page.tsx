@@ -62,7 +62,7 @@ export default function PropertyDetailPage() {
         </div>
         <h1 className="font-serif text-3xl font-bold text-[#0B2341]">Property not found</h1>
         <p className="mt-2 max-w-sm text-sm font-medium leading-6 text-brand-muted">
-          The Modern-property property, land option, or package you requested is no longer available.
+          The Modern Properties property, land option, or package you requested is no longer available.
         </p>
         <Link href="/properties" className="mt-6 bg-[#0B2341] px-6 py-3 text-xs font-extrabold uppercase tracking-wider text-white">
           Return to property search
@@ -252,8 +252,8 @@ export default function PropertyDetailPage() {
             {activeTab === 'build path' ? (
               <div>
                 <SectionHeading
-                  title="Recommended Modern-Property build path"
-                  description="This is the practical sequence Modern-property would use to move from shortlist to contract, construction, and handover."
+                  title="Recommended Modern Properties property path"
+                  description="This is the practical sequence Modern Properties would use to move from shortlist to contract, coordination, and handover."
                 />
                 <div className="mt-6">
                   <ConstructionTimeline steps={constructionSteps} />
@@ -290,7 +290,7 @@ export default function PropertyDetailPage() {
               <div>
                 <SectionHeading
                   title={`${property.suburb}, ${property.state}`}
-                  description="Modern-property reviews suburb demand, nearby services, estate controls, and construction access before final build pricing."
+                  description="Modern Properties reviews suburb demand, nearby services, estate controls, and site access before final project pricing."
                 />
                 <div className="mt-6 flex h-72 items-center justify-center border border-brand-border bg-brand-section">
                   <div className="text-center">
@@ -307,7 +307,7 @@ export default function PropertyDetailPage() {
         <aside className="lg:col-span-1">
           <div className="sticky top-24 overflow-hidden border border-brand-border bg-white">
             <div className="bg-[#0B2341] p-5 text-white">
-              <div className="text-[10px] font-extrabold uppercase tracking-widest text-brand-yellow">Connect with Modern-Property</div>
+              <div className="text-[10px] font-extrabold uppercase tracking-widest text-brand-yellow">Connect with Modern Properties</div>
               <h2 className="mt-2 font-serif text-2xl font-bold">Request site details</h2>
               <p className="mt-2 text-xs font-semibold leading-6 text-white/72">Ask for land checks, inclusions, design fit, brochure, and next purchase step.</p>
             </div>
@@ -336,7 +336,7 @@ export default function PropertyDetailPage() {
 
               {enquirySuccess ? (
                 <div className="border border-emerald-200 bg-emerald-50 p-5 text-center text-sm font-bold text-emerald-800">
-                  Enquiry registered locally. Modern-property will contact you about this property path.
+                  Enquiry registered locally. Modern Properties will contact you about this property path.
                 </div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-3 text-xs font-bold text-[#0B2341]">
@@ -367,7 +367,7 @@ export default function PropertyDetailPage() {
                   <Phone size={14} />
                   Call
                 </a>
-                <button onClick={() => alert('Modern-property brochure request saved locally.')} className="inline-flex items-center justify-center gap-2 border border-brand-border px-3 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341]">
+                <button onClick={() => alert('Modern Properties brochure request saved locally.')} className="inline-flex items-center justify-center gap-2 border border-brand-border px-3 py-3 text-xs font-extrabold uppercase tracking-wider text-[#0B2341]">
                   <FileText size={14} />
                   Brochure
                 </button>

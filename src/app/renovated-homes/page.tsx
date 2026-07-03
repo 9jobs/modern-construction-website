@@ -25,7 +25,7 @@ export default function RenovatedHomesPage() {
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Completed transformations"
-          title={`Renovated Modern-Property homes in ${selectedState === 'ALL' ? 'Australia' : selectedState}`}
+          title={`Renovated Modern Properties homes in ${selectedState === 'ALL' ? 'Australia' : selectedState}`}
           description="Buy a completed home where acquisition, planning, renovation, structural upgrades, and finish selections have already been managed."
         />
         {homes.length > 0 ? (
@@ -46,7 +46,7 @@ export default function RenovatedHomesPage() {
           <SectionHeading
             eyebrow="Construction value"
             title="Old property, new standard"
-            description="Modern-property renovation projects focus on structural condition, planning controls, upgraded services, new finishes, and clean handover documents."
+            description="Modern Properties renovation projects focus on structural condition, planning controls, upgraded services, new finishes, and clean handover documents."
           />
           <div className="mt-8">
             <IconCardGrid items={trustPoints} />
@@ -56,7 +56,7 @@ export default function RenovatedHomesPage() {
 
       <CTASection
         title="Interested in a completed transformation?"
-        description="Tell Modern-property what suburb, price range, and property style you want so we can confirm suitable homes or upcoming projects."
+        description="Tell Modern Properties what suburb, price range, and property style you want so we can confirm suitable homes or upcoming projects."
         href="/contact?interest=Renovated%20Home"
         label="Ask about renovated homes"
       />

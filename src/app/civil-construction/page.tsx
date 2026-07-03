@@ -8,21 +8,21 @@ export default function CivilConstructionPage() {
   return (
     <div className="bg-white font-sans text-brand-text">
       <PageHero
-        title="Premium Civil & Building Construction"
-        eyebrow="Stage 2: Civil Construction"
-        description="Structured, quality-controlled civil execution, reliable timelines, and expert site engineering services."
-        image="/img/construction2.jpg"
-        primaryHref="/contact?interest=Construction"
-        primaryLabel="Enquire about civil build"
+        title="Property Development Coordination"
+        eyebrow="Stage 2: Development Coordination"
+        description="Modern Properties coordinates renovation and development work through trusted third-party contractors while keeping project goals clear."
+        image="/img/property-purchase.jpg"
+        primaryHref="/contact?interest=Development%20Coordination"
+        primaryLabel="Enquire about a property project"
         secondaryHref="/structural-shells"
-        secondaryLabel="See completed shells"
+        secondaryLabel="See completed properties"
       />
 
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Capabilities"
-          title="End-to-End Civil Site Sourcing & Construction"
-          description="Modern-property manages soil tests, site cuts, structural concrete foundations, plumbing, and structural frames."
+          title="End-to-End Property Coordination"
+          description="Modern Properties manages property assessment, contractor coordination, project timing, documentation, and sale preparation."
         />
         <div className="mt-8">
           <IconCardGrid items={serviceCards} />
@@ -33,8 +33,8 @@ export default function CivilConstructionPage() {
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Structured sequence"
-            title="Civil Building Timeline"
-            description="Our structured milestones keep civil builds on track, from initial slab preparation to lock-up completion."
+            title="Property Coordination Timeline"
+            description="Our structured milestones keep renovation or development projects moving from review through completed sale readiness."
           />
           <div className="mt-8">
             <ConstructionTimeline steps={constructionSteps} />
@@ -45,8 +45,8 @@ export default function CivilConstructionPage() {
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Quality verification"
-          title="120-Point Site Audit Checklist"
-          description="Every construction stage undergoes strict independent civil audits before sign-off to ensure lifetime warranty standards."
+          title="Important Clarification"
+          description="Modern Properties does not directly provide construction or building services. Any renovation or development work is carried out by independent third-party contractors and skilled workers."
         />
         <div className="mt-8">
           <IconCardGrid items={trustPoints} />
@@ -54,10 +54,10 @@ export default function CivilConstructionPage() {
       </section>
 
       <CTASection
-        title="Ready to coordinate a civil build scope?"
-        description="Send your land coordinates, council approvals, or target site brief. Modern-property civil engineers will coordinate the review."
-        href="/contact?interest=Civil%20Construction"
-        label="Request construction scope"
+        title="Ready to discuss a property with potential?"
+        description="Send your site details, goals, or target outcome and Modern Properties will coordinate the next review step."
+        href="/contact?interest=Development%20Coordination"
+        label="Request property review"
       />
     </div>
   );

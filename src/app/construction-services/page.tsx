@@ -7,17 +7,17 @@ export default function ConstructionServicesPage() {
     <div className="bg-white font-sans text-brand-text">
       <PageHero
         {...pageHeroContent.constructionServices}
-        primaryHref="/contact?interest=Construction"
-        primaryLabel="Request construction help"
+        primaryHref="/contact?interest=Property%20Coordination"
+        primaryLabel="Ask about property coordination"
         secondaryHref="/build-with-aura"
-        secondaryLabel="See build journey"
+        secondaryLabel="See property journey"
       />
 
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Services"
-          title="Construction support for buyers and site owners"
-          description="Modern-property supports feasibility, property acquisition, new builds, renovations, commercial/residential developments, and handover coordination."
+          title="Property coordination support for buyers and sellers"
+          description="Modern Properties helps with acquisition reviews, development coordination, renovation management, resale planning, and ready-to-buy property presentation."
         />
         <div className="mt-8">
           <IconCardGrid items={serviceCards} />
@@ -28,8 +28,8 @@ export default function ConstructionServicesPage() {
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Delivery stages"
-            title="A practical construction sequence"
-            description="The same stage logic supports custom homes, house and land packages, renovations, and small development projects."
+            title="A practical property improvement sequence"
+            description="The same step-by-step approach supports acquisition, renovation coordination, development management, presentation, and final sale."
           />
           <div className="mt-8">
             <ConstructionTimeline steps={constructionSteps} />
@@ -40,8 +40,8 @@ export default function ConstructionServicesPage() {
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Quality controls"
-          title="Checks before and during the build"
-          description="Modern-property keeps the key build risks visible: soil, slope, engineering, permits, supplier selections, supervisor updates, and handover documents."
+          title="Checks before and during coordination"
+          description="Modern Properties keeps the key property risks visible: site condition, planning needs, contractor coordination, timing, documentation, and sale readiness."
         />
         <div className="mt-8">
           <IconCardGrid items={trustPoints} />
@@ -49,10 +49,10 @@ export default function ConstructionServicesPage() {
       </section>
 
       <CTASection
-        title="Need help with a construction scope?"
-        description="Send your property address, land status, project type, and target timing. Modern-property will suggest the next local step."
-        href="/contact?interest=Construction"
-        label="Request construction scope"
+        title="Need help with a property opportunity?"
+        description="Send your property address, current status, target outcome, and preferred timing. Modern Properties will suggest the next practical step."
+        href="/contact?interest=Property%20Coordination"
+        label="Request property review"
       />
     </div>
   );

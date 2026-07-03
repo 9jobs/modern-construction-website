@@ -45,7 +45,7 @@ export const InvestmentCalculator: React.FC = () => {
             Calculate Development Feasibility
           </h3>
           <p className="text-xs text-brand-textMuted leading-relaxed">
-            Estimate subdivision profit and renovation yield. Adjust purchase price, construction schedules, and final market values to verify capital efficiency.
+            Estimate subdivision profit and renovation yield. Adjust purchase price, improvement budgets, and final market values to verify capital efficiency.
           </p>
         </div>
 
@@ -72,10 +72,10 @@ export const InvestmentCalculator: React.FC = () => {
             </div>
           </div>
 
-          {/* Construction / Reno Cost */}
+          {/* Improvement Cost */}
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center text-xs font-semibold">
-              <span className="text-brand-charcoal">Construction & Build Cost</span>
+              <span className="text-brand-charcoal">Development / Renovation Cost</span>
               <span className="text-brand-primary text-sm font-bold">{formatCurrency(constructionCost)}</span>
             </div>
             <input

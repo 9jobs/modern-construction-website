@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -8,12 +8,12 @@ import { motion } from 'framer-motion';
 
 const footerGroups = [
   {
-    title: 'Build',
+    title: 'Designs',
     links: [
       { label: 'Home Designs', href: '/home-designs' },
       { label: 'House & Land', href: '/house-and-land' },
       { label: 'Display Homes', href: '/display-homes' },
-      { label: 'Build with Modern-Property', href: '/build-with-aura' },
+      { label: 'Partner with Modern Properties', href: '/build-with-aura' },
     ],
   },
   {
@@ -28,15 +28,13 @@ const footerGroups = [
   {
     title: 'Develop',
     links: [
-      { label: 'Knockdown Rebuild', href: '/knockdown-rebuild' },
       { label: 'Development Sites', href: '/development-sites' },
       { label: 'Development Projects', href: '/development-projects' },
       { label: 'Investment Properties', href: '/investment-properties' },
-      { label: 'Construction Services', href: '/construction-services' },
-    ],
+          ],
   },
   {
-    title: 'Modern-Property',
+    title: 'Modern Properties',
     links: [
       { label: 'Style Inspiration', href: '/style-inspiration' },
       { label: 'About', href: '/about' },
@@ -114,12 +112,11 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col gap-6 py-7 md:flex-row md:items-start md:justify-between">
             <div>
               <Link href="/" className="inline-flex flex-col group">
-                <span className="font-serif text-2xl font-extrabold leading-none tracking-wide text-[#071d38] group-hover:text-[#1C4D8C] transition-colors">Modern-Property</span>
-                <span className="mt-0.5 text-[7px] font-extrabold uppercase tracking-[0.32em] text-[#667085]">Acquisitions & Developments</span>
+                <span className="font-serif text-2xl font-extrabold leading-none tracking-wide text-[#071d38] group-hover:text-[#1C4D8C] transition-colors">Modern Properties</span>
+                <span className="mt-0.5 text-[7px] font-extrabold uppercase tracking-[0.32em] text-[#667085]">Buy & Sell</span>
               </Link>
               <p className="mt-4 max-w-2xl text-[10px] font-medium leading-5 text-[#667085]">
-                Copyright {new Date().getFullYear()} Modern-Property Developments & Construction Pty Ltd. Property availability,
-                acquisition details, construction timing, design options, and investment yields are subject to independent verification and local approvals.
+                Copyright {new Date().getFullYear()} Modern Properties Developments Pty Ltd. Property availability, acquisition details, design options, and investment yields are subject to independent verification and local approvals.
               </p>
             </div>
 

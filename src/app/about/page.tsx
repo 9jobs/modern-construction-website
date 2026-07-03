@@ -5,7 +5,7 @@ import { brand, mainJourneys, pageHeroContent, trustPoints } from '../../data/si
 const stats = [
   { label: 'Operating states', value: '5' },
   { label: 'Buyer paths', value: '4' },
-  { label: 'Build stages tracked', value: '6' },
+  { label: 'Project stages tracked', value: '6' },
   { label: 'Local support line', value: brand.phone },
 ];
 
@@ -15,16 +15,16 @@ export default function AboutPage() {
       <PageHero
         {...pageHeroContent.about}
         primaryHref="/contact"
-        primaryLabel="Talk to Modern-Property"
+        primaryLabel="Talk to Modern Properties"
         secondaryHref="/build-with-aura"
-        secondaryLabel="How we build"
+        secondaryLabel="How we work"
       />
 
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Who we are"
-          title="A property acquisition, development, and construction firm"
-          description="Modern-property is designed for property buyers and investors seeking a complete acquisition, construction, and development lifecycle. We identify high-potential sites, manage the planning and subdivision processes, build to premium standards, and sell completed residential and commercial properties directly."
+          title="A property buying, development coordination, and sales business"
+          description="Modern Properties specializes in buying and selling properties. We identify properties with strong potential, arrange development or renovation work through reliable third-party contractors and skilled workers, and then offer the completed properties to buyers."
         />
         <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-brand-border bg-brand-border md:grid-cols-4">
           {stats.map((stat) => (
@@ -39,9 +39,9 @@ export default function AboutPage() {
       <section className="border-y border-brand-border bg-brand-section/70 py-14">
         <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="What Modern-property helps with"
+            eyebrow="What Modern Properties helps with"
             title="Start from the path that fits you"
-            description="Whether you are acquiring a site, investing in a development project, or buying completed residential or commercial properties, Modern-property turns the opportunity into a premium completed build."
+            description="Whether you are selling a site, buying an improved property, or exploring a development opportunity, Modern Properties helps move the property toward a reliable ready-to-buy outcome."
           />
           <div className="mt-8">
             <IconCardGrid items={mainJourneys} />
@@ -52,8 +52,8 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Our promise"
-          title="Make the hidden build details visible"
-          description="Good property decisions depend on build reality: soil, services, approvals, design fit, construction sequence, and handover documents."
+          title="Make the hidden property details visible"
+          description="We do not provide construction services ourselves. Our focus is on delivering well-developed, ready-to-buy properties while ensuring a smooth and reliable buying and selling experience for our customers."
         />
         <div className="mt-8">
           <IconCardGrid items={trustPoints} />
@@ -61,9 +61,17 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Important Clarification"
+          title="Independent contractors complete the improvement work"
+          description="Modern Properties does not directly provide construction or building services. Any renovation or development work is carried out by independent third-party contractors and skilled workers."
+        />
+      </section>
+
+      <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <CTASection
-          title="Tell Modern-Property your property and investment goals"
-          description="We acquire, build, and sell premium properties. Contact us today to explore upcoming projects or register your investment brief."
+          title="Tell Modern Properties your property and investment goals"
+          description="We buy properties, coordinate development or renovation through trusted contractors, and sell completed properties. Contact us to explore available opportunities."
           href="/contact"
           label="Start conversation"
         />

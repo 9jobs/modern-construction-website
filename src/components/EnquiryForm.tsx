@@ -40,8 +40,14 @@ export const EnquiryForm: React.FC = () => {
           mappedInterest = 'Develop Old Site';
         } else if (lowerInterest.includes('investment') || lowerInterest.includes('inv')) {
           mappedInterest = 'Investment Portfolio';
-        } else if (lowerInterest.includes('construction') || lowerInterest.includes('civil') || lowerInterest.includes('display') || lowerInterest.includes('visit')) {
-          mappedInterest = 'Construction Service';
+        } else if (
+          lowerInterest.includes('construction') ||
+          lowerInterest.includes('civil') ||
+          lowerInterest.includes('display') ||
+          lowerInterest.includes('visit') ||
+          lowerInterest.includes('coordination')
+        ) {
+          mappedInterest = 'Property Coordination';
         }
       }
 
@@ -93,12 +99,12 @@ export const EnquiryForm: React.FC = () => {
         
         <div className="relative z-10 flex flex-col gap-6">
           <div>
-            <span className="text-[10px] text-brand-primary font-bold tracking-widest uppercase block mb-1">CONNECT WITH MODERN-PROPERTY</span>
+            <span className="text-[10px] text-brand-primary font-bold tracking-widest uppercase block mb-1">CONNECT WITH Modern Properties</span>
             <h3 className="text-2xl font-serif text-brand-charcoal font-bold tracking-tight">
               Start your property acquisition or sales brief.
             </h3>
             <p className="text-xs text-brand-textMuted leading-relaxed mt-2">
-              Whether you are submitting an estate for direct acquisition, looking for subdivided land allotments, searching for high-ROI developed residential villas, or checking active construction milestones, our team is ready to respond.
+              Whether you are submitting an estate for direct acquisition, looking for subdivided land allotments, searching for developed residential villas, or asking about coordinated renovation or development progress, our team is ready to respond.
             </p>
           </div>
  
@@ -140,7 +146,7 @@ export const EnquiryForm: React.FC = () => {
         <div className="relative z-10 pt-8 border-t border-brand-border flex items-center gap-4 text-brand-textMuted text-[10px] font-semibold">
           <Award size={18} className="text-brand-primary flex-shrink-0" />
           <p className="leading-relaxed">
-            Full compliance certificates and structural warranties provided for all subdivisions and new builds.
+            Development and renovation work is coordinated through trusted third-party contractors and tracked with clear documentation.
           </p>
         </div>
       </div>
@@ -160,7 +166,7 @@ export const EnquiryForm: React.FC = () => {
               </div>
               <h4 className="font-serif text-2xl font-bold text-brand-charcoal mb-2">Enquiry Logged Successfully</h4>
               <p className="text-sm text-brand-textMuted max-w-sm leading-relaxed mb-6">
-                Your request has been routed to our regional branch manager. We will review site guidelines and feasibility metrics and get back to you within 24 hours.
+                Your request has been routed to our regional branch manager. We will review the property details and get back to you within 24 hours.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
@@ -270,7 +276,7 @@ export const EnquiryForm: React.FC = () => {
                 <option value="Renovated Home">Renovated home purchase</option>
                 <option value="Develop Old Site">Selling old house / Site Dev</option>
                 <option value="Investment Portfolio">High Yield Investment</option>
-                <option value="Construction Service">Custom Build / Engineering</option>
+                <option value="Property Coordination">Property Development Coordination</option>
               </select>
             </div>
           </div>
