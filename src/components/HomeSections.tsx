@@ -112,12 +112,7 @@ const wantToItems = [
     href: '/investment-properties',
     icon: ShieldCheck,
   },
-  {
-    title: 'Renovate or develop a site',
-    href: '/knockdown-rebuild',
-    icon: Ruler,
-  },
-];
+  ];
 
 const buildTypeCards = [
   {
@@ -405,14 +400,14 @@ function WantToTiles() {
       <ScrollAnimate variant="fadeUp">
         <h2 className="mb-6 text-center font-serif text-xl font-bold text-[#071d38]">I want to...</h2>
       </ScrollAnimate>
-      <StaggerContainer className="grid grid-cols-2 border border-[#DADDE2] md:grid-cols-4">
+      <StaggerContainer className="grid grid-cols-1 border border-[#DADDE2] md:grid-cols-3">
         {wantToItems.map((item) => {
           const Icon = item.icon;
           return (
             <StaggerItem key={item.title} variant="fadeUp" className="h-full animate-stagger-item">
               <Link
                 href={item.href}
-                className="group flex min-h-[112px] h-full flex-col items-center justify-center gap-3 border-b border-r border-[#DADDE2] bg-white p-4 text-center last:border-r-0 hover:bg-[#F4F8FB] md:border-b-0 transition-colors duration-300"
+                className="group flex min-h-[112px] h-full flex-col items-center justify-center gap-3 border-r border-[#DADDE2] bg-white p-4 text-center last:border-r-0 hover:bg-[#F4F8FB] transition-colors duration-300"
               >
                 <Icon size={22} className="text-[#0B2341] group-hover:scale-110 transition-transform duration-300" />
                 <span className="max-w-[9rem] text-[11px] font-extrabold leading-4 text-[#071d38] underline-offset-4 group-hover:underline">
@@ -1294,7 +1289,6 @@ export function HomeSections() {
       <HeroVideo />
       <PromoCards />
       <WantToTiles />
-      <BuildTypeCards />
             <WhyChooseUsSection />
       <section className="mx-auto max-w-[1512px] px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
